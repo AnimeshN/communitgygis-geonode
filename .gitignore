@@ -1,0 +1,13 @@
+Backups/
+CachedData/
+CachedExtensions/
+Cookies
+Cookies-journal
+Network Persistent State
+User/
+languagepacks.json
+logs/
+machineid
+rapid_render.json
+storage.json
+
