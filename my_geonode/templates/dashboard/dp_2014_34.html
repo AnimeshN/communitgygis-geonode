@@ -130,18 +130,18 @@
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Update in Progress....</button></li>
         </div>
 </ul> 
-<div class="col-md-4 text-center"> 
-    <button style="position: absolute;left: 150px;top: 800px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="glyphicon glyphicon-off"></span></button> 
-</div>
+<div style="text-align: center"> 
+        <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="glyphicon glyphicon-off"></span></button> 
+    </div>
     </div>
 
 
     <script>
 
-        $("#closebutton").click(function(){
-                        ctlSidebar.toggle();
-                    });
-     var myLayerList = [];
+    $("#closebutton").click(function(){
+        ctlSidebar.toggle();
+    });
+    var myLayerList = [];
     function putLayer(geonode_source){
         mymap.setView([19.1056518,72.7815566], 11.75);
         var index = myLayerList.indexOf(geonode_source);
