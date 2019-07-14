@@ -123,6 +123,9 @@
         </div>
         </div>
 
+        {% endif %}
+        {% endfor %}
+
 
         <!-- GOA Theme -->
         {% for group in user.groups.all %}
@@ -297,7 +300,7 @@
         {% endif %}
         {% endfor %}
 
-    <div class = "container" id="mydiv" style="float: left;">
+    <!-- <div class = "container" id="mydiv" style="float: left;">
 
 
         <img src="{% static 'images/home_thumbnail/others.png' %}" width="315" height="263" alt="census">
@@ -317,10 +320,8 @@
         </div>
         </div>
    
-    </div>
+    </div> -->
 
-        {% endif %}
-        {% endfor %}
 
 
 
