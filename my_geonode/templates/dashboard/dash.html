@@ -10,10 +10,22 @@
 
         grid-template-rows: repeat(3, 70vh);
         place-items: center center; 
+        grid-template-areas: "column-1 column-2 column-3";
         
     }
+grid-item:nth-child(1) { grid-area: column-1; }
+grid-item:nth-child(2) { grid-area: column-2; }
+grid-item:nth-child(3) { grid-area: column-3; }
 
-   
+@media ( max-width: 500px ) {  
+  .space { 
+        grid-template-columns: 1fr; 
+        grid-template-areas: " column-1 " 
+                             " column-2 "
+                             " column-3 ";
+   }
+}
+
 
     #mydiv {
   width: 320px;
