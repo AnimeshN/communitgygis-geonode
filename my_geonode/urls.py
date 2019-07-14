@@ -25,6 +25,8 @@ from geonode.urls import urlpatterns
 
 urlpatterns += [
 ## include your urls here
+    
+    url(r'^dashboard/', include('dashboard.urls')),
 
 ]
 
