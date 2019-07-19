@@ -20,7 +20,7 @@
  
 <ul class="list-group">
     <li class="list-group-item list-group-item-info"><b>Ratnagiri</b></li>
-    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:d_palghar')";>Palgarh</button></li>
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:stress')";>Palgarh</button></li>
  </ul> 
  <div style="text-align: center"> 
         <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="glyphicon glyphicon-off"></span></button> 
@@ -35,7 +35,7 @@ $("#closebutton").click(function(){
 var myLayerList = [];
     function putLayer(geonode_source){
         console.log('jjj');
-        mymap.setView([19.6936, 72.7655], 9);
+        mymap.setView([19.9365, 73.3404], 9);
         var index = myLayerList.indexOf(geonode_source);
         if(index >= 0){
             console.log('remove'+geonode_source)
@@ -62,7 +62,7 @@ var myLayerList = [];
 var mymap;
             
             var source = L.wms.source(
-                "http://104.210.61.129/geoserver/wms",
+                "http://localhost/geoserver/wms",
                 {
                     "format": "image/png",
                     "transparent": "true"
