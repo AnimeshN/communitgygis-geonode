@@ -21,7 +21,7 @@
   <h2>Shahapur</h2>
   <hr>
   <ul class="list-group">
-    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:village')";>Village boundaries undivided thane</button></li>
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:village')";>Village boundaries(Thane and Palghar)</button></li>
 
      <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:v_280420190')";>Vertices</button></li>
      
@@ -129,7 +129,7 @@ Checkbox: <input type="checkbox" id="myCheck1"  onclick="myFunction(this)"><br> 
    
 
                 var source = L.wms.source(
-                    "http://localhost/geoserver/wfs",
+                    "http://104.43.197.79/geoserver/wfs",
                     {
                         "format": "image/png",
                         "transparent": "true"
