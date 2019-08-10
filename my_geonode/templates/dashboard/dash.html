@@ -1,6 +1,5 @@
 {% extends 'geonode_base.html'%}
 {% block body %}
-{% if user.is_authenticated %}
 {% load static%}
 <style>
     .space{
@@ -41,7 +40,7 @@ grid-item:nth-child(3) { grid-area: column-3; }
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
-{% if not user.groups.exists %}
+<!-- {% if not user.groups.exists %}
 <div class="container">
     <h2>Information</h2>
     <div class="panel panel-default">
@@ -53,10 +52,8 @@ grid-item:nth-child(3) { grid-area: column-3; }
       </div>
     </div>
   </div>
-{% endif %}
+{% endif %} -->
 <div class="space" style="">
-    {% for group in user.groups.all %}
-    {% if group.name == 'census' or group.name == 'restricted' or group.name == 'admin' %}
     <div class = "container" id="mydiv" style="float:left;">
 
 
@@ -75,14 +72,10 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
         </div>
-    {% endif %}
-    {% endfor %}
     
         
         
         <!-- Development Planning 2014-34 Start here-->
-        {% for group in user.groups.all %}
-        {% if group.name ==  'development_plan' or group.name == 'restricted' or group.name == 'admin'   %}
 
 
 
@@ -106,12 +99,8 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
 
-        {% endif %}
-        {% endfor %}
         <!-- Development Planning 2014-34 End here-->
 
-        {% for group in user.groups.all %}
-{% if group.name ==  'swm' or group.name == 'restricted' or group.name == 'admin'   %}
 
 
 
@@ -136,13 +125,9 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
 
-        {% endif %}
-        {% endfor %}
 
 
         <!-- GOA Theme -->
-        {% for group in user.groups.all %}
-        {% if group.name ==  'goa' or group.name == 'restricted' or group.name == 'admin'   %}
         
         
         
@@ -166,15 +151,11 @@ grid-item:nth-child(3) { grid-area: column-3; }
                 </div>
                 </div>
         
-                {% endif %}
-                {% endfor %}
 
 
 
 
 
-    {% for group in user.groups.all %}
-    {% if group.name  == 'edu' or group.name == 'restricted' or group.name == 'admin'   %}
 
 
     <div class = "container" id="mydiv" style="float:left;">
@@ -200,8 +181,6 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
 
-        {% endif %}
-        {% endfor %}
   
     {% for group in user.groups.all %}
     {% if group.name == 'iit' or group.name == 'admin'   %}
@@ -231,8 +210,6 @@ grid-item:nth-child(3) { grid-area: column-3; }
         {% endfor %}
 
 
-    {% for group in user.groups.all %}
-    {% if group.name == 'transport' or group.name == 'restricted' or group.name == 'admin'   %}
     
 
 
@@ -258,12 +235,6 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
         </div>
-        {% endif %}
-        {% endfor %}
-
-
-    {% for group in user.groups.all %}
-    {% if group.name == 'health' or group.name == 'restricted' or group.name == 'admin'   %}
     <div class = "container" id="mydiv" style="float:left;">
 
 
@@ -283,12 +254,6 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
         </div>
-        {% endif %}
-        {% endfor %}
-
-
-       {% for group in user.groups.all %}
-       {% if group.name == 'water' or group.name == 'restricted' or group.name == 'admin'   %}
      
 
     <div class = "container" id="mydiv" style="float:left;">
@@ -310,8 +275,6 @@ grid-item:nth-child(3) { grid-area: column-3; }
         </div>
         </div>
         </div>
-        {% endif %}
-        {% endfor %}
 
     <!-- <div class = "container" id="mydiv" style="float: left;">
 
@@ -350,14 +313,13 @@ grid-item:nth-child(3) { grid-area: column-3; }
 
 
 
-{% endif %}
 
-{% if not user.is_authenticated %}
+<!-- {% if not user.is_authenticated %}
 <div class="container">
     <div class="jumbotron">
       <h1>Please login to access dashboard</h1>      
     </div>
     <p>Login Required!!</p>      
   </div>
-{% endif%}
+{% endif%} -->
 {% endblock %}
