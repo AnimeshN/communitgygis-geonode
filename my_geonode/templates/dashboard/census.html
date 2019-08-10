@@ -1,7 +1,6 @@
 {% extends 'dashboard/base.html'%}
 {% load static %}
 {% block content %}
-{% if user.is_authenticated %}
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">
@@ -484,6 +483,5 @@ else if(anemity == 'Household Amenities'){
 
 
 
-{% endif %}
 
     {% endblock %}

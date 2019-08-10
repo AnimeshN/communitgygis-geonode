@@ -1,7 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static%}
 {% block content %}
-{% if user.is_authenticated %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
     
@@ -50,7 +49,7 @@
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_sub_census')";>Suburban</button></li>
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_city_census')";>City</button></li>
         </div>
-        <button class="collapsible" onclick="putLayer('geonode:constituency_ward_boundary')">Corporator Ward Boundary(NA)</button>
+        <button class="collapsible" onclick="putLayer('geonode:corporator_ward_boundaries')">Corporator Ward Boundary</button>
         <div class="content">
                 <!--li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:constituency_ward_boundary')";>Update in Progress....</button></li-->
         </div>
@@ -223,6 +222,5 @@ var mymap;
                
 </script>
 
-{% endif %}
 
 {% endblock %}

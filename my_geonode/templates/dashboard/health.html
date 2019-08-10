@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-{% if user.is_authenticated %}
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
@@ -26,8 +25,8 @@
     <li class="list-group-item list-group-item-info"><b>Malegaon</b></li>
 
     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:malegaon_merged_1')";>Wards</button></li>
-    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:urban_anganwadi_1')";>Aganwadi</button></li>
-    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:urban_health_1')";>health</button></li>
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:urban_anganwadi_1')";>Anganwadi</button></li>
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:urban_health_1')";>Health Centers</button></li>
     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:urban_school_1')";>School</button></li>
     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:town_boundar_malegaon_2')";>Town boundary 1</button></li>
     <!-- <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:town_boundary_2')";>Town boundary 2</button></li> -->
@@ -38,7 +37,18 @@
 
  </ul> 
 
+<ul class="list-group">
+    <li class="list-group-item list-group-item-info"><b>Maharashtra Urban</b></li>
 
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:District_Boundaries_of_Maharashtra')";>District Boundaries</button></li>
+
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:maha_talukas')";>Taluka Boundaries</button></li>
+
+     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:Health_Institutes')";>Health Institutes</button></li>
+
+    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:ulb_class1wise')";>Urban Local Bodies</button></li>
+    
+ </ul> 
 
 
 
@@ -96,7 +106,7 @@
    
 
                 var source = L.wms.source(
-                    "http://104.210.61.129/geoserver/wfs",
+                    "http://104.43.197.79/geoserver/wfs",
                     {
                         "format": "image/png",
                         "transparent": "true"
@@ -1042,6 +1052,5 @@
 
 
 
- {% endif%}
 
     {% endblock %}

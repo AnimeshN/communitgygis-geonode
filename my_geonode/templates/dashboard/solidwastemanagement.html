@@ -1,7 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static%}
 {% block content %}
-{% if user.is_authenticated %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
     
@@ -47,6 +46,7 @@
   <hr>
  
 <ul class="list-group">
+    <button class="collapsible" onclick="putLayer('geonode:mmrda')">MMRDA Boundary</button>
     <button class="collapsible">Mumbai</button>
         <div class="content">
                 <button class="collapsible">Mumbai Census Boundary</button>
@@ -54,15 +54,15 @@
                     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_sub_census')";>Suburban</button></li>
                     <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_city_census')";>City</button></li>
                 </div>
-                <button class="collapsible" onclick="putLayer('geonode:constituency_ward_boundary')">Corporator Ward Boundary(NA)</button>
+                <button class="collapsible" onclick="putLayer('geonode:corporator_ward_boundaries')">Corporator Ward Boundary</button>
                 <div class="content">
                         <!--li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:constituency_ward_boundary')";>Update in Progress....</button></li-->
                 </div>
-                <button class="collapsible" onclick="putLayer('geonode:mmrda')">MMRDA Boundary</button>
+                <!-- <button class="collapsible" onclick="putLayer('geonode:mmrda')">MMRDA Boundary</button> -->
                 <div class="content">
                         <!--li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:constituency_ward_boundary')";>Update in Progress....</button></li-->
                 </div>
-                <button class="collapsible" onclick="putLayer('geonode:mumbai_road_network')">Mumbai OSM Roads</button>
+                <button class="collapsible" onclick="putLayer('geonode:mumbai_road_network1')">Mumbai OSM Roads</button>
                 <div class="content">
                         <!--li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:constituency_ward_boundary')";>Update in Progress....</button></li-->
                 </div>
@@ -146,7 +146,7 @@
                         <div class="content">
                         <button class="collapsible">OSM Roads</button>
                         <div class="content">
-                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network')";>Mumbai OSM Roads</button></li>
+                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network1')";>Mumbai OSM Roads</button></li>
                         </div>
                         <button class="collapsible">National Higways</button>
                         <div class="content">
@@ -269,7 +269,7 @@
                 <div class="content">
                 <button class="collapsible">OSM Roads</button>
                 <div class="content">
-                         <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network')";>Mumbai OSM Roads</button></li>
+                         <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network1')";>Mumbai OSM Roads</button></li>
                 </di     v>
                 <but     ton class="collapsible">National Higways</button>
                 <div      class="content">
@@ -314,7 +314,7 @@
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:s_ward_high_voltage_line_16jan_kajal')";>High Voltage Line</button></li>
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:s_ward_flyover_bridge_17jan_kajal')";>Flyover Bridge</button></li>
             <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:s_ward_bufferforrailway_15jan_dhiraj')";>Buffer For Railway</button></li>
-            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:s_ward_buffer_for_high_voltage_line_17jan_kajal')";>Buffer For High Voltage Line</button></li>
+            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:s_ward_buffer_for_high_voltage_line_17jan_kaj')";>Buffer For High Voltage Line</button></li>
             </div>
         </div>
     
@@ -396,7 +396,7 @@
                         <div class="content">
                         <button class="collapsible">OSM Roads</button>
                         <div class="content">
-                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network')";>Mumbai OSM Roads</button></li>
+                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network1')";>Mumbai OSM Roads</button></li>
                         </div>
                         <button class="collapsible">National Higways</button>
                         <div class="content">
@@ -519,7 +519,7 @@
                         <div class="content">
                         <button class="collapsible">OSM Roads</button>
                         <div class="content">
-                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network')";>Mumbai OSM Roads</button></li>
+                            <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:mumbai_road_network1')";>Mumbai OSM Roads</button></li>
                         </div>
                         <button class="collapsible">National Higways</button>
                         <div class="content">
@@ -624,7 +624,7 @@ for (i = 0; i < coll.length; i++) {
 var mymap;
             
             var source = L.wms.source(
-                "http://104.210.61.129/geoserver/wfs",
+                "http://104.43.197.79/geoserver/wfs",
                 {
                     "format": "image/png",
                     "transparent": "true"
@@ -659,6 +659,5 @@ var mymap;
                    ctlSidebar.toggle(); 
                 }).addTo(mymap);          
 </script>
-{% endif %}
 
 {% endblock %}
