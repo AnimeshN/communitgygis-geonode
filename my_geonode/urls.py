@@ -26,12 +26,19 @@ from geonode.urls import urlpatterns
 urlpatterns += [
 ## include your urls here
     
-    url(r'^dashboard/', include('dashboard.urls')),
+    # url(r'^dashboard/', include('dashboard.urls')),
 
 ]
 
+# urlpatterns = [
+#    url(r'^/?$',
+#        TemplateView.as_view(template_name='site_index.html'),
+#        name='home'),
+#  ] + urlpatterns
+
+
 urlpatterns = [
    url(r'^/?$',
-       TemplateView.as_view(template_name='site_index.html'),
+       TemplateView.as_view(template_name='dash.html'),
        name='home'),
  ] + urlpatterns
