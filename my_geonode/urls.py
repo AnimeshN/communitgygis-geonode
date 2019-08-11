@@ -26,7 +26,7 @@ from geonode.urls import urlpatterns
 urlpatterns += [
 ## include your urls here
     
-    # url(r'^dashboard/', include('dashboard.urls')),
+    url(r'^dashboard/', include('dashboard.urls')),
 
 ]
 
@@ -39,6 +39,6 @@ urlpatterns += [
 
 urlpatterns = [
    url(r'^/?$',
-       TemplateView.as_view(template_name='dash.html'),
+       TemplateView.as_view(template_name='landing-page.html'),
        name='home'),
  ] + urlpatterns
