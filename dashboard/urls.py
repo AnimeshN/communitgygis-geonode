@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'edu',views.Education),
     url(r'goamap',views.Goadashboards),
     url(r'iit',views.IITBombay),
+    url(r'tdsc',views.tdsc),
 
 ]

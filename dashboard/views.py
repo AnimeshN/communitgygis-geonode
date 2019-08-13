@@ -57,6 +57,9 @@ def Health(request):
 def Water(request):
     return render(request,'dashboard/ruralwater.html')
 
+def tdsc(request):
+    return render(request,'dashboard/tdsc.html')
+
 
 # def front(request):
 # 	return render(request,'map/front.html')
