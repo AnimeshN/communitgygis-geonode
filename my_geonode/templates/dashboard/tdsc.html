@@ -38,6 +38,7 @@
 
 
 </style>
+<div id="mapdiv" class="col-md-12"></div>
 
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
 
@@ -46,7 +47,7 @@
  
 <ul class="list-group">
     <li class="list-group-item list-group-item-info"><b>Palgarh</b></li>
-    <li class="list-group-item list-group-item-info"><button class="btn select" onclick="displayLayer()";>Water stress</button></li>
+    <li class="list-group-item list-group-item-info"><button class="btn select selectedlayer" onclick="displayLayer()";>Water stress</button></li>
  </ul> 
  <div style="text-align: center"> 
         <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="glyphicon glyphicon-off"></span></button> 
@@ -76,15 +77,10 @@ var myLayerList = [];
         }
     }
 
-    $('.select').click(function () {
-        $(this).toggleClass('highlight')
-    })
 
 
-    </script>
 
-<div id="mapdiv" class="col-md-12"></div>
-<script>
+
 var mymap;
 var geojson;
 
@@ -98,7 +94,11 @@ var source = L.wms.source(
 }        
 );
 
+$('.select').click(function () {
+        $(this).toggleClass('highlight');
 
+        
+    });
 
 mymap = L.map('mapdiv', {center:[19.9374, 73.5364], zoom:9, zoomControl:false, attributionControl:false});
 lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
@@ -146,7 +146,44 @@ function style(feature) {
 
 
 
+// function displayLayer(){
+// mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
+// fetch(url)
+// .then(
+//     function(response) {
+//     if (response.status !== 200) {
+//         console.log('Looks like there was a problem. Status Code: ' +
+//         response.status);
+//         return;
+//     }
+
+//     // Examine the text in the response
+//     response.json().then(function(stressData) {
+//         console.log(stressData.features)
+//         geojson = L.geoJson(stressData.features,{style: style}).addTo(mymap);
+//         mymap.setView([19.9365, 73.3404], 11);
+//         geojson = L.geoJson(stressData.features, {
+//         style: style,
+//         onEachFeature: onEachFeature
+//     }).addTo(mymap);
+//     mymap.spin(false);
+
+//     });
+
+
+//     }
+// )
+// .catch(function(err) {
+//     console.log('Fetch Error :-S', err);
+// });
+    
+// }
+
+
 function displayLayer(){
+if(mymap.hasLayer(geojson)){
+mymap.removeLayer(geojson);
+}else{
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 fetch(url)
 .then(
@@ -159,8 +196,7 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        console.log(stressData.features)
-        geojson = L.geoJson(stressData.features,{style: style}).addTo(mymap);
+        // console.log(stressData.features);
         mymap.setView([19.9365, 73.3404], 11);
         geojson = L.geoJson(stressData.features, {
         style: style,
@@ -176,6 +212,8 @@ fetch(url)
 .catch(function(err) {
     console.log('Fetch Error :-S', err);
 });
+}
+
     
 }
 
