@@ -84,7 +84,7 @@
                             </div>
                             <button class="collapsible">OSM buildings</button>
                             <div class="content">
-                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:osm_building_l_ward')";>L-Ward</button></li>
+                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:osm_building_L_ward')";>L-Ward</button></li>
                             </div>
                             <button class="collapsible">Chawls</button>
                             <div class="content">
@@ -189,7 +189,7 @@
                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:high_voltage_lines_l_ward')";>High Voltage Line</button></li>
                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:buffer_for_railway_l_ward')";>Buffer For Railway</button></li>
                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:buffer_for_high_voltage_lines_l_ward')";>Buffer For High Voltage Line</button></li>
-                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>High Tide Line</button></li>
+                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>High Tide Line (Update in progress)</button></li>
                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:crz_buffer')";>CRZ Buffer</button></li>
                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Update in Progress....</button></li>
                         </div>
@@ -327,8 +327,8 @@
                         <button class="collapsible">Surveyed buildings/Complexes/Colonies</button>
                             <div class="content">
                                 <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:hw_building_seggregation_wise')";>Seggregation Wise</button></li>
-                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Composting Wise</button></li>
-                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Weight Wise</button></li>
+                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Composting Wise(update in progress)</button></li>
+                                <li class="list-group-item list-group-item-info"><button class="btn select" onclick="putLayer('geonode:')";>Weight Wise(update in progress)</button></li>
 
 
                             </div>
@@ -624,7 +624,7 @@ for (i = 0; i < coll.length; i++) {
 var mymap;
             
             var source = L.wms.source(
-                "http://104.43.197.79/geoserver/wfs",
+                "http://makerghat.urbansciences.in/geoserver/wfs",
                 {
                     "format": "image/png",
                     "transparent": "true"
