@@ -69,7 +69,7 @@
         background:rgb(255,255,255);
     }
     .select.highlight {
-        background:rgb(26, 2129, 0);
+        background:rgb(26, 255, 0);
     }
   </style>
 
@@ -101,9 +101,9 @@ var mymap;
       }        
   );
   
-129
-  mymap = L.map('mapdiv', {cen129ter:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
-  lyrOSM = L.tileLayer.provide129r('OpenStreetMap.Mapnik');
+
+  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
+  lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
   lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
   mymap.addLayer(lyrOSM);
   
