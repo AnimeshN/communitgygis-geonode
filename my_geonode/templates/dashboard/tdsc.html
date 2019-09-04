@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
     
-.select {
+/* .select {
     background:rgb(255,255,255);
 }
 .select.highlight {
     background:rgb(26, 255, 0);
-}
+} */
 
 .info {
     padding: 6px 8px;
@@ -38,7 +38,7 @@
 
 
 </style>
-<div id="mapdiv" class="col-md-12"></div>
+<!-- <div id="mapdiv" class="col-md-12"></div> -->
 
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
 
@@ -56,9 +56,9 @@
 
 
     <script>
-$("#closebutton").click(function(){
-    ctlSidebar.toggle();
-});
+// $("#closebutton").click(function(){
+//     ctlSidebar.toggle();
+// });
 var myLayerList = [];
     function putLayer(geonode_source){
         console.log('jjj');
@@ -86,43 +86,43 @@ var geojson;
 
 var url = "http://localhost/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3Astress&outputFormat=application/json";
 var info = L.control();
-var source = L.wms.source(
-"http://localhost/geoserver/wms",
-{
-    "format": "image/png",
-    "transparent": "true"
-}        
-);
+// var source = L.wms.source(
+// "http://localhost/geoserver/wms",
+// {
+//     "format": "image/png",
+//     "transparent": "true"
+// }        
+// );
 
-$('.select').click(function () {
-        $(this).toggleClass('highlight');
+// $('.select').click(function () {
+//         $(this).toggleClass('highlight');
 
         
-    });
+//     });
 
-mymap = L.map('mapdiv', {center:[19.9374, 73.5364], zoom:9, zoomControl:false, attributionControl:false});
-lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-mymap.addLayer(lyrOSM);
+// mymap = L.map('mapdiv', {center:[19.9374, 73.5364], zoom:9, zoomControl:false, attributionControl:false});
+// lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+// lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
+// mymap.addLayer(lyrOSM);
 
 
-objBasemaps = {
-    "Open Street Maps": lyrOSM,
-    "Imagery":lyrImagery
-};
+// objBasemaps = {
+//     "Open Street Maps": lyrOSM,
+//     "Imagery":lyrImagery
+// };
 
-objOverlays = {
-};
+// objOverlays = {
+// };
 
-var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-ctlSidebar.show();
-var ctlPan = L.control.pan().addTo(mymap);
+// var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
+// var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
+// ctlSidebar.show();
+// var ctlPan = L.control.pan().addTo(mymap);
 
-var ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
-    ctlSidebar.toggle(); 
-}).addTo(mymap);
-var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
+// var ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
+//     ctlSidebar.toggle(); 
+// }).addTo(mymap);
+// var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
 
 function getColor(d) {
     return d > 6 ? '#FF0000' :
