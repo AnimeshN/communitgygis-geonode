@@ -84,7 +84,7 @@ var myLayerList = [];
 var mymap;
 var geojson;
 
-var url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3Astress&outputFormat=application/json";
+var url = "http://104.210.61.129/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3Astress&outputFormat=application/json";
 var info = L.control();
 // var source = L.wms.source(
 // "http://localhost/geoserver/wms",
@@ -196,7 +196,7 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        // console.log(stressData.features);
+        console.log(stressData.features);
         mymap.setView([19.9365, 73.3404], 11);
         geojson = L.geoJson(stressData.features, {
         style: style,

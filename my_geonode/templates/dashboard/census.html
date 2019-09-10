@@ -47,7 +47,7 @@
               <option value="Parbhani">Parbhani</option>
               <option value="Hingoli">Hingoli</option>
           </optgroup>
-
+          /dashboard/census
           <optgroup label="Kokan">
               <option value="Mumbai City">Mumbai City</option>
               <option value="Mumbai Suburban">Mumbai Suburban</option>
@@ -228,18 +228,17 @@ var houseLayerCode = ['geonode:household','geonode:h_akola','geonode:h_amravati'
 var townLayerCode= ['geonode:town','geonode:t_akola','geonode:t_amravati','geonode:t_buldana','geonode:t_yavatmal','geonode:t_washim','geonode:t_aurangabad','geonode:t_beed','geonode:t_jalna','geonode:t_osmanabad','geonode:t_nanded','geonode:t_latur','geonode:t_parbhani','geonode:t_hingoli','geonode:t_mumbai_city','geonode:t_mumbai_suburban','geonode:t_thane','geonode:t_palghar','geonode:t_raigarh','geonode:t_ratnagiri','geonode:t_sindhudurg','geonode:t_bhandara','geonode:t_gadchiroli','geonode:t_chandrapur','geonode:t_gondiya','geonode:t_nagpur','geonode:t_wardha','geonode:t_ahmadnagar','geonode:t_dhule','geonode:t_jalgoan','geonode:t_nandurbar','geonode:t_nashik','geonode:t_kolhapur','geonode:t_pune','geonode:t_sangli','geonode:t_satara','geonode:t_solapur'];
 var demoLayerCode = ['geonode:demography','geonode:d_akola','geonode:d_amravati','geonode:d_buldhana','geonode:d_yavatmal','geonode:d_washim','geonode:d_aurangabad','geonode:d_beed','geonode:d_jalna','geonode:d_osmanabad','geonode:d_nanded','geonode:d_latur','geonode:d_parbhani','geonode:d_hingoli','geonode:d_mumbai_city','geonode:d_mumbai_suburban','geonode:d_thane','geonode:d_palghar','geonode:d_raigarh','geonode:d_ratnagiri','geonode:d_sindhudurg','geonode:d_bhandara','geonode:d_gadchiroli','geonode:d_chandrapur','geonode:d_gondia','geonode:d_nagpur','geonode:d_wardha','geonode:d_ahmadnagar','geonode:d_dhule','geonode:d_jalgaon','geonode:d_nandurbar','geonode:d_nashik','geonode:d_kolhapur','geonode:d_pune','geonode:d_sangli','geonode:d_satara','geonode:d_solapur'];
 
-
+var mymap = ""
 
 var districtLat = [19.076,20.7002,20.9374,20.4561,20.3888,20.139,19.8762,18.9891,19.8297,18.207,19.1383,18.4088,19.2644,19.5781,19.0176,19.1538,19.2183,19.6936,18.5158,16.9902,16.3492,21.0736,19.4969,19.9615,21.4624,21.1458,20.7453,19.0948,20.9042,21.0077,21.7469,19.9975,16.705,18.5204,16.8524,17.6805,17.6805];
 var districtLong = [72.8777,77.0082,77.7796,76.3637,78.1204,77.1025,75.3433,75.7601,75.88,76.1784,77.321,76.5604,76.6413,77.1025,72.8561,72.8752,72.9781,72.7655,73.1822,73.312,73.5594,79.8297,80.2767,79.2961,80.221,79.0882,78.6022,74.748,74.7749,75.5626,74.124,73.7898,74.2433,73.8567,74.5815,74.0183,74.0183];
 var districtZoom = [7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8];
-var mymap1;
 
 
 
 function clearAllLayers(){
     for (var i = myDistrictLayerList.length - 1; i >= 0; i--) {
-        source.getLayer(myDistrictLayerList[i]).addTo(mymap1).remove(mymap1);;
+        source.getLayer(myDistrictLayerList[i]).addTo(mymap).remove(mymap);;
         
     }
  
@@ -247,14 +246,14 @@ function clearAllLayers(){
 }
 function addMyNewLayers(amenity,dis){
    var index = listOfDistrict.indexOf(dis);
-   mymap1.setView([districtLat[index], districtLong[index]], districtZoom[index]);
+   mymap.setView([districtLat[index], districtLong[index]], districtZoom[index]);
   
 
   if(amenity == 'Village Amenities'){
     if(villageLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(villageLayerCode[index]).addTo(mymap1);
+        source.getLayer(villageLayerCode[index]).addTo(mymap);
         myDistrictLayerList.push(villageLayerCode[index]);
         }
     }
@@ -262,7 +261,7 @@ function addMyNewLayers(amenity,dis){
     if(houseLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(houseLayerCode[index]).addTo(mymap1);
+        source.getLayer(houseLayerCode[index]).addTo(mymap);
         myDistrictLayerList.push(houseLayerCode[index]);
         } 
     }
@@ -271,7 +270,7 @@ function addMyNewLayers(amenity,dis){
     if(townLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(townLayerCode[index]).addTo(mymap1);
+        source.getLayer(townLayerCode[index]).addTo(mymap);
         myDistrictLayerList.push(townLayerCode[index]);
         }  
     }
@@ -279,7 +278,7 @@ function addMyNewLayers(amenity,dis){
     if(demoLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(demoLayerCode[index]).addTo(mymap1);
+        source.getLayer(demoLayerCode[index]).addTo(mymap);
         myDistrictLayerList.push(demoLayerCode[index]);
         } 
     }
@@ -292,7 +291,7 @@ function addMyNewLayers(amenity,dis){
 }
 function removeMyNewLayers(amenity,dis){
    var index = listOfDistrict.indexOf(dis);
-   source.getLayer(villageLayerCode[index]).addTo(mymap1).remove(mymap1);;
+   source.getLayer(villageLayerCode[index]).addTo(mymap).remove(mymap);;
 
 }
 
@@ -337,6 +336,7 @@ else if(anemity == 'Household Amenities'){
     }
    if (geonodecode != ''){
     var code = geonodecode.substring(8, );
+    console.log(code);
     url = "http://104.210.61.129/geoserver/wfs?format_options=charset%3AUTF-8&typename=geonode%3A"+code+"&outputFormat=SHAPE-ZIP&version=1.0.0&service=WFS&request=GetFeature&";
     window.open(url,code); 
    }
@@ -350,7 +350,7 @@ else if(anemity == 'Household Amenities'){
         // menu();
         </script>
         </div>
-    <div id="mapdiv" class="col-md-12"></div>
+    <!-- <div id="mapdiv" class="col-md-12"></div> -->
 <script>
     var mymap;
                 var lyrOSM;
@@ -378,13 +378,13 @@ else if(anemity == 'Household Amenities'){
                 var psl,pgl,pbul,pbl,lwardbl,raill,pondl,polyl,osmbl,mrll,hvll,bfrl,bfhvll,villagel,hlpcal,townl;
                 var mokhadavl;
 
-                var source = L.wms.source(
-                    "http://104.210.61.129/geoserver/wfs",
-                    {
-                        "format": "image/png",
-                        "transparent": "true"
-                    }        
-                    );
+                // var source = L.wms.source(
+                //     "http://104.210.61.129/geoserver/wfs",
+                //     {
+                //         "format": "image/png",
+                //         "transparent": "true"
+                //     }        
+                //     );
                 
                 $(document).ready(function(){
 
@@ -420,56 +420,42 @@ else if(anemity == 'Household Amenities'){
             
          });
     });
-                    mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
-                    lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+                    // mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
+                    // lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
                     // lyrTopo = L.tileLayer.provider('OpenTopoMap');
-                    lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
+                    // lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
                     // lyrOutdoors = L.tileLayer.provider('Thunderforest.Outdoors');
                     // lyrWatercolor = L.tileLayer.provider('Stamen.Watercolor');
-                    mymap.addLayer(lyrOSM);
+                    // mymap.addLayer(lyrOSM);
                     
                     // lyrChapultepec = L.imageOverlay('img/chapultepec.png', [[19.42993,-99.20843],[19.40621,-99.17453]], {opacity:0.5}).addTo(mymap);
                     
-                    objBasemaps = {
-                        "Open Street Maps": lyrOSM,
-                        // "Topo Map":lyrTopo,
-                        "Imagery":lyrImagery
-                        // "Outdoors":lyrOutdoors,
-                        // "Watercolor":lyrWatercolor
-                    };
+                   
+                    // ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
                     
-                    objOverlays = {
-                        // "Chapultepec Image":lyrChapultepec
-                    };
-                    
-                    ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-                    
-                    ctlPan = L.control.pan().addTo(mymap);
-                    ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
+                    // ctlPan = L.control.pan().addTo(mymap);
+                    // ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
                     
                     // ctlMeasure = L.control.polylineMeasure().addTo(mymap);
-                    ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
+                    // ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
                     
-                    ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
-                       ctlSidebar.toggle(); 
-                    }).addTo(mymap);
+                    // ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
+                    //    ctlSidebar.toggle(); 
+                    // }).addTo(mymap);
 
-                    $("#closebutton").click(function(){
-                        ctlSidebar.toggle();
-                    });
+                    // $("#closebutton").click(function(){
+                    //     ctlSidebar.toggle();
+                    // });
 
-                    var helloPopup = L.popup().setContent('<h1>About US</h1><br><i>Primary objective of communitygis is to provide educational platform for learners to learn about spatial information and learn how these  modern tools can be used to solve real life problems. <br/><br/>It creates a platform for people who range from those who can contribute data ( mobile based point data collection to digitization of published maps) to those who can analyse the data to infer useful social knowledge.                    <br/><br/>It is a digital contraption needed to collect, aggregate , access and analyse data  finally provide decision support for to manipulate reality.                    <br/><br/>Since all source code is published , under GPL, any one can reproduce the technology , without any permission from makerGHAT.This has been created by volunteers and coordinated by www.makerghat.org<i>');
+                    // var helloPopup = L.popup().setContent('<h1>About US</h1><br><i>Primary objective of communitygis is to provide educational platform for learners to learn about spatial information and learn how these  modern tools can be used to solve real life problems. <br/><br/>It creates a platform for people who range from those who can contribute data ( mobile based point data collection to digitization of published maps) to those who can analyse the data to infer useful social knowledge.                    <br/><br/>It is a digital contraption needed to collect, aggregate , access and analyse data  finally provide decision support for to manipulate reality.                    <br/><br/>Since all source code is published , under GPL, any one can reproduce the technology , without any permission from makerGHAT.This has been created by volunteers and coordinated by www.makerghat.org<i>');
 
-                    L.easyButton('glyphicon glyphicon-question-sign', function(btn, map){
-                        helloPopup.setLatLng(map.getCenter()).openOn(mymap);
-                    }).addTo(mymap);
+                    // L.easyButton('glyphicon glyphicon-question-sign', function(btn, map){
+                    //     helloPopup.setLatLng(map.getCenter()).openOn(mymap);
+                    // }).addTo(mymap);
 
                     
                     
-                    ctlAttribute = L.control.attribution({position:'bottomleft'}).addTo(mymap);
-                    ctlAttribute.addAttribution('OSM');
-                    ctlAttribute.addAttribution('&copy; <a href="http://www.makerghat.org">makerGHAT</a>');
-
+                    
                     // ctlLogo = L.control.attribution({position:'bottomright'}).addTo(mymap);
                     
        
