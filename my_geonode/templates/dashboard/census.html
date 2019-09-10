@@ -233,13 +233,13 @@ var demoLayerCode = ['geonode:demography','geonode:d_akola','geonode:d_amravati'
 var districtLat = [19.076,20.7002,20.9374,20.4561,20.3888,20.139,19.8762,18.9891,19.8297,18.207,19.1383,18.4088,19.2644,19.5781,19.0176,19.1538,19.2183,19.6936,18.5158,16.9902,16.3492,21.0736,19.4969,19.9615,21.4624,21.1458,20.7453,19.0948,20.9042,21.0077,21.7469,19.9975,16.705,18.5204,16.8524,17.6805,17.6805];
 var districtLong = [72.8777,77.0082,77.7796,76.3637,78.1204,77.1025,75.3433,75.7601,75.88,76.1784,77.321,76.5604,76.6413,77.1025,72.8561,72.8752,72.9781,72.7655,73.1822,73.312,73.5594,79.8297,80.2767,79.2961,80.221,79.0882,78.6022,74.748,74.7749,75.5626,74.124,73.7898,74.2433,73.8567,74.5815,74.0183,74.0183];
 var districtZoom = [7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8];
-
+var mymap1;
 
 
 
 function clearAllLayers(){
     for (var i = myDistrictLayerList.length - 1; i >= 0; i--) {
-        source.getLayer(myDistrictLayerList[i]).addTo(mymap).remove(mymap);;
+        source.getLayer(myDistrictLayerList[i]).addTo(mymap1).remove(mymap1);;
         
     }
  
@@ -247,14 +247,14 @@ function clearAllLayers(){
 }
 function addMyNewLayers(amenity,dis){
    var index = listOfDistrict.indexOf(dis);
-   mymap.setView([districtLat[index], districtLong[index]], districtZoom[index]);
+   mymap1.setView([districtLat[index], districtLong[index]], districtZoom[index]);
   
 
   if(amenity == 'Village Amenities'){
     if(villageLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(villageLayerCode[index]).addTo(mymap);
+        source.getLayer(villageLayerCode[index]).addTo(mymap1);
         myDistrictLayerList.push(villageLayerCode[index]);
         }
     }
@@ -262,7 +262,7 @@ function addMyNewLayers(amenity,dis){
     if(houseLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(houseLayerCode[index]).addTo(mymap);
+        source.getLayer(houseLayerCode[index]).addTo(mymap1);
         myDistrictLayerList.push(houseLayerCode[index]);
         } 
     }
@@ -271,7 +271,7 @@ function addMyNewLayers(amenity,dis){
     if(townLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(townLayerCode[index]).addTo(mymap);
+        source.getLayer(townLayerCode[index]).addTo(mymap1);
         myDistrictLayerList.push(townLayerCode[index]);
         }  
     }
@@ -279,7 +279,7 @@ function addMyNewLayers(amenity,dis){
     if(demoLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(demoLayerCode[index]).addTo(mymap);
+        source.getLayer(demoLayerCode[index]).addTo(mymap1);
         myDistrictLayerList.push(demoLayerCode[index]);
         } 
     }
@@ -292,7 +292,7 @@ function addMyNewLayers(amenity,dis){
 }
 function removeMyNewLayers(amenity,dis){
    var index = listOfDistrict.indexOf(dis);
-   source.getLayer(villageLayerCode[index]).addTo(mymap).remove(mymap);;
+   source.getLayer(villageLayerCode[index]).addTo(mymap1).remove(mymap1);;
 
 }
 
