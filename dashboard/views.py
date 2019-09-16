@@ -60,6 +60,9 @@ def Water(request):
 def tdsc(request):
     return render(request,'dashboard/tdsc.html')
 
+def test_animesh(request):
+    return render(request,'dashboard/d3_test.html')
+
 
 # def front(request):
 # 	return render(request,'map/front.html')

@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'goamap',views.Goadashboards),
     url(r'iit',views.IITBombay),
     url(r'tdsc',views.tdsc),
+    url(r'test_animesh',views.test_animesh),
 
 ]

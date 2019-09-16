@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3: Setting path fills</title>
+        <script type="text/javascript" src="{% static 'd3_v4_min.js' %}"></script>
+        <style type="text/css">
+            /* No style rules here yet */       
+            path {
+                fill: #ccc;
+                stroke: #fff;
+                stroke-width: .5px;
+            }
+            path:hover {
+                fill: orange;
+            }
+            body {
+                text-align: center;
+            }
+            div.tooltip { 
+                position: absolute;     
+                text-align: center;     
+                width: 80px;          
+                height: 14px;         
+                padding: 2px;       
+                font: 12px sans-serif;    
+                background: #fff; 
+                border: 0px;        
+                pointer-events: none;     
+            }
+        </style>
+    </head>
+
+
+    
+
+
+    <body>
+
+    <div id="title">
+        <h1>Palgarh Village Population</h1>
+        <p> census 2011</p>
+    </div>
+
+ <div id='map'></div>
+ 
+  <div>
+    <label for="nVel">
+      Population = <span id="goal-value">10000</span>
+      <input style="width: 500px;" type="range" min="0" max="12000" id="goal" value="12000" step='100'>
+    </label>
+  </div>
+
+
+        <script type="text/javascript">
+
+
+            var width = 920;
+            var height = 580;
+            goal = 2000;
+
+            var colors = d3.scaleQuantize()
+                .domain([0,12000])
+                .range(["#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
+                "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"]);
+            
+
+            var svg = d3.select("body").append("svg")
+                .attr("width", width).attr("height", height)
+
+            var tooltip = d3.select("body").append("div") 
+            .attr("class", "tooltip")       
+            .style("opacity", 0);
+
+            d3.json("d_palgarh.json", function(json) {
+                // create a first guess for the projection
+                console.log(json);
+                var center = d3.geoCentroid(json)
+                var scale  = 150;
+                var offset = [width/2, height/2];
+                var projection = d3.geoMercator().scale(scale).center(center)
+                    .translate(offset);
+
+                // create the path
+                var path = d3.geoPath().projection(projection);
+
+                // using the path determine the bounds of the current map and use 
+                // these to determine better values for the scale and translation
+                var bounds  = path.bounds(json);
+                var hscale  = scale*width  / (bounds[1][0] - bounds[0][0]);
+                var vscale  = scale*height / (bounds[1][1] - bounds[0][1]);
+                var scale   = (hscale < vscale) ? hscale : vscale * .9;
+                var offset  = [width - (bounds[0][0] + bounds[1][0])/2,
+                                    height - (bounds[0][1] + bounds[1][1])/2];
+
+                // new projection
+                projection = d3.geoMercator().center(center)
+                    .scale(scale).translate(offset);
+                path = path.projection(projection);
+
+                // add a rectangle to see the bound of the svg
+                svg.append("rect").attr('width', width).attr('height', height)
+                    .style('stroke', 'black').style('fill', 'none');
+
+                svg.selectAll("path").data(json.features).enter().append("path")
+                    .attr("d", path)
+                    .style("fill", function(d){ return colors(d.properties.tot_p);})
+                    
+                    .on("mouseover", function(d) {    
+                        tooltip.transition()    
+                        .duration(200)    
+                        .style("opacity", .9);    
+                        tooltip.html(d.properties.area_name)  
+                        .style("left", (d3.event.pageX) + "px")   
+                        .style("top", (d3.event.pageY - 28) + "px");  
+                    })          
+                    .on("mouseout", function(d) {   
+                        tooltip.transition()    
+                        .duration(500)    
+                        .style("opacity", 0); 
+                    });
+                    // .style("stroke-width", "1")
+                    // .style("stroke", "black")
+
+               
+                });
+
+                   d3.select("#goal").on("input", function() {
+                        goal = +this.value;
+                        d3.select('#goal-value').text(goal);
+
+                        svg.selectAll("svg path").each(function(d) { 
+                            this.style.opacity = d.properties.tot_p < goal ? 1 : 0;
+                        });
+                    });
+
+
+        </script>
+    </body>
+</html>
