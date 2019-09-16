@@ -19,7 +19,6 @@
                 $( "#amount" ).val( "Population " + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
                 console.log(ui.values[0]);
                 svg.selectAll("svg path").each(function(d) {
-                            // this.style.opacity = d.properties.tot_p < ui.values[0] ? 1 : 0;
                             if(d.properties.tot_p > ui.values[0] && d.properties.tot_p < ui.values[1]){
                                 this.style.opacity = 1;
                             }else{
@@ -80,12 +79,7 @@
 
  <div id='map'></div>
  
-  <!-- <div>
-    <label for="nVel">
-      Population = <span id="goal-value">10000</span>
-      <input style="width: 500px;" type="range" min="0" max="12000" id="goal" value="12000" step='100'>
-    </label>
-  </div> -->
+  
 
 
 
@@ -119,7 +113,7 @@
             .style("opacity", 0);
 
 
-            var url = "http://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3Ad_palghar&outputFormat=application/json";
+            var url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3Ad_palghar&outputFormat=application/json";
             var d_palgarh = "";
             fetch(url)
             .then(

@@ -61,7 +61,7 @@ def tdsc(request):
     return render(request,'dashboard/tdsc.html')
 
 def test_animesh(request):
-    return render(request,'dashboard/d3_test.html')
+    return render(request,'dashboard/test.html')
 
 
 # def front(request):
