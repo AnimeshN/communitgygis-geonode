@@ -127,89 +127,20 @@ Checkbox: <input type="checkbox" id="myCheck1"  onclick="myFunction(this)"><br> 
 <script>
    
 
-                var source = L.wms.source(
-                    "http://104.43.197.79/geoserver/wfs",
-                    {
-                        "format": "image/png",
-                        "transparent": "true"
-                    }        
-                    );
-                
+              
                 $(document).ready(function(){
 
                     
         // alert(form_data);                             
         
-                    mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
-                    lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-                    // lyrTopo = L.tileLayer.provider('OpenTopoMap');
-                    lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-                    // lyrOutdoors = L.tileLayer.provider('Thunderforest.Outdoors');
-                    // lyrWatercolor = L.tileLayer.provider('Stamen.Watercolor');
-                    mymap.addLayer(lyrOSM);
                     
-                    // lyrChapultepec = L.imageOverlay('img/chapultepec.png', [[19.42993,-99.20843],[19.40621,-99.17453]], {opacity:0.5}).addTo(mymap);
-                    
-                    objBasemaps = {
-                        "Open Street Maps": lyrOSM,
-                        // "Topo Map":lyrTopo,
-                        "Imagery":lyrImagery
-                        // "Outdoors":lyrOutdoors,
-                        // "Watercolor":lyrWatercolor
-                    };
-                    
-                    objOverlays = {
-                        // "Chapultepec Image":lyrChapultepec
-                    };
-                    
-                    ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-                    
-                    ctlPan = L.control.pan().addTo(mymap);
-                    ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
                     
                     // ctlMeasure = L.control.polylineMeasure().addTo(mymap);
-                    ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
                     
-                    ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
-                       ctlSidebar.toggle(); 
-                    }).addTo(mymap);
-
-                    $("#closebutton").click(function(){
-                        ctlSidebar.toggle();
-                    });
-
-                    var helloPopup = L.popup().setContent('<h1>About US</h1><br><i>Primary objective of communitygis is to provide educational platform for learners to learn about spatial information and learn how these  modern tools can be used to solve real life problems. <br/><br/>It creates a platform for people who range from those who can contribute data ( mobile based point data collection to digitization of published maps) to those who can analyse the data to infer useful social knowledge.                    <br/><br/>It is a digital contraption needed to collect, aggregate , access and analyse data  finally provide decision support for to manipulate reality.                    <br/><br/>Since all source code is published , under GPL, any one can reproduce the technology , without any permission from makerGHAT.This has been created by volunteers and coordinated by www.makerghat.org<i>');
-
-                    L.easyButton('glyphicon glyphicon-question-sign', function(btn, map){
-                        helloPopup.setLatLng(map.getCenter()).openOn(mymap);
-                    }).addTo(mymap);
-
-                    
-                    ctlSearch = L.Control.openCageSearch({key: '3c38d15e76c02545181b07d3f8cfccf0',limit: 10}).addTo(mymap);
-                    
-                    ctlAttribute = L.control.attribution({position:'bottomleft'}).addTo(mymap);
-                    ctlAttribute.addAttribution('OSM');
-                    ctlAttribute.addAttribution('&copy; <a href="http://www.makerghat.org">makerGHAT</a>');
 
                     // ctlLogo = L.control.attribution({position:'bottomright'}).addTo(mymap);
                     
-                    ctlScale = L.control.scale({position:'bottomleft', metric:false, maxWidth:200}).addTo(mymap);
-                    ctlMouseposition = L.control.mousePosition().addTo(mymap);
-                    
-                    popZocalo = L.popup({maxWidth:200,keepInView:true});
-                    popZocalo.setLatLng([19.43262, -99.13325]);
-                    popZocalo.setContent("<h2>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
-                    
-                    mymap.on('contextmenu', function(e) {
-                        var dtCurrentTime = new Date();
-                        L.marker(e.latlng).addTo(mymap).bindPopup(e.latlng.toString()+"<br>"+dtCurrentTime.toString());
-                    });
-                    
-                    mymap.on('keypress', function(e) {
-                        if (e.originalEvent.key=="l") {
-                            mymap.locate();
-                        }
-                    });
+                   
 
                     // var credctrl = L.controlCredits({
                     //     image: "img/logo.png",

@@ -77,18 +77,32 @@
         background:rgb(26, 255, 0);
     }
   </style>
+<div id="mapdiv" class="col-md-12"></div>
 
 <script>
-$("#closebutton").click(function(){
-  ctlSidebar.toggle();
-});
+var mymap;
+var source = L.wms.source(
+      "http://104.210.61.129/geoserver/wms",
+      {
+          "format": "image/png",
+          "transparent": "true"
+      }        
+  );
+
+  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
+  lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+  lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
+  mymap.addLayer(lyrOSM);
+
+
+
+
 
 $('.select').click(function () {
   $(this).toggleClass('highlight')
 })
 </script>
 
-<div id="mapdiv" class="col-md-12"></div>
 
 
    
@@ -96,21 +110,13 @@ $('.select').click(function () {
 {% endblock %}
 
 <script>
-var mymap;
   
-  var source = L.wms.source(
-      "http://104.210.61.129/geoserver/wms",
-      {
-          "format": "image/png",
-          "transparent": "true"
-      }        
-  );
   
-
-  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
-  lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-  lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-  mymap.addLayer(lyrOSM);
+  
+  $("#closebutton").click(function(){
+  ctlSidebar.toggle();
+});
+ 
   
   
   objBasemaps = {
@@ -128,6 +134,7 @@ var mymap;
   var ctlEasybutton = L.easyButton('fa fa-arrows-alt-h', function(){
       ctlSidebar.toggle(); 
   }).addTo(mymap);
+  ctlSidebar.show();
 
   var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
   

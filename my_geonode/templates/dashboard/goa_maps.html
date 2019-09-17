@@ -101,9 +101,7 @@
 
 
     <script>
-$("#closebutton").click(function(){
-        ctlSidebar.toggle();
-    });
+ 
 
      var myLayerList = [];
     
@@ -145,49 +143,6 @@ for (i = 0; i < coll.length; i++) {
 }
     </script>
 
-<div id="mapdiv" class="col-md-12"></div>
-<script>
-var mymap;
-            
-            var source = L.wms.source(
-                "http://104.210.61.129/geoserver/wfs",
-                {
-                    "format": "image/png",
-                    "transparent": "true"
-                }        
-                );
-            
-        
-                mymap = L.map('mapdiv', {center:[15.2993, 74.1240], zoom:11.75, zoomControl:false, attributionControl:false});
-                lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-                lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-                mymap.addLayer(lyrOSM);
-                
-                
-                objBasemaps = {
-                    "Open Street Maps": lyrOSM,
-                    "Imagery":lyrImagery
-                };
-                
-                objOverlays = {
-                };
-                
-                var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-                
-
-               
-                var ctlPan = L.control.pan().addTo(mymap);
-                var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
-                
-                var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-                var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-                 var ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
-                   ctlSidebar.toggle(); 
-                }).addTo(mymap);
-
-                
-               
-</script>
 
 
 {% endblock %}

@@ -1,122 +1,113 @@
-{% extends 'dashboard/base.html'%}
-{% load static %}
+{% extends 'dashboard/base.html' %}
+{% load static%}
 {% block content %}
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  
 
-<style>
-    .arrange{
-        padding-top: 100px;
-    }
-</style>
-<div class="field_wrapper arrange">
-    <!-- <div>
-        <input type="text" name="field_name[]" value=""/>
-        <a href="javascript:void(0);" class="add_button" title="Add field">Add more</a>
-    </div> -->
-    <h4>Select districts according to regions : one-by-one or all. <br></h4>
-    <hr>
-    <div>Select Themes:
-        <select class='form-control' id="amenities" >
-          <option >Village Amenities</option>
-          <option >Household Amenities</option>
-          <option >Town Amenities</option>
-          <option >Demographies</option>
-          <option >Ground water recharge priorities(GSDA)</option>
-          <option >Waterbodies</option>
-        </select>
-        <br>Select District:
-         <select class='form-control' name="field_name[]" style="">
-          <option value="All">All</option>
-          <optgroup label="Vidarbh(East)">
-              <option value="Akola">Akola</option>
-              <option value="Amrawati">Amrawati</option>
-              <option value="Buldana">Buldana</option>
-              <option value="Yavatmal">Yavatmal</option>
-              <option value="Washim">Washim</option>
-          </optgroup>
-          <optgroup label="Marathwada">
-              <option value="Aurangabad">Aurangabad</option>
-              <option value="Beed">Beed</option>
-              <option value="Jalna">Jalna</option>
-              <option value="Osmanabad">Osmanabad</option>
-              <option value="Nanded">Nanded</option>
-              <option value="Latur">Latur</option>
-              <option value="Parbhani">Parbhani</option>
-              <option value="Hingoli">Hingoli</option>
-          </optgroup>
-          /dashboard/census
-          <optgroup label="Kokan">
-              <option value="Mumbai City">Mumbai City</option>
-              <option value="Mumbai Suburban">Mumbai Suburban</option>
-              <option value="Thane">Thane</option>
-              <option value="Palghar">Palghar</option>
-              <option value="Raigad">Raigad</option>
-              <option value="Ratnagiri">Ratnagiri</option>
-              <option value="Sindhudurg">Sindhudurg</option>
-          </optgroup>
+<div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
 
-        <optgroup label="Vidarbh(West)">
-              <option value="Bhandara">Bhandara</option>
-              <option value="Gadchiroli">Gadchiroli</option>
-              <option value="Chandrapur">Chandrapur</option>
-              <option value="Gondia">Gondia</option>
-              <option value="Nagpur">Nagpur</option>
-              <option value="Wardha">Wardha</option>
-          </optgroup>
-
-            <optgroup label="Khandesh">
-              <option value="Ahmednagar">Ahmednagar</option>
-              <option value="Dhule">Dhule</option>
-              <option value="Jalgaon">Jalgaon</option>
-              <option value="Nandurbar">Nandurbar</option>
-              <option value="Nashik">Nashik</option>
-          </optgroup>
-
-        
-            <optgroup label="Paschim Maharashtra">
-              <option value="Kolhapur">Kolhapur</option>
-              <option value="Pune">Pune</option>
-              <option value="Sangli">Sangli</option>
-              <option value="Satara">Satara</option>
-              <option value="Solapur">Solapur</option>
-          </optgroup>
-        </select> 
-
-
-
-        <a href="javascript:void(0);" class="add_button" title="Add field"><button style="float: right;"><span class="glyphicon glyphicon-plus"></button></a>
+    <div class="field_wrapper arrange">
+     <h4>Select districts according to regions : one-by-one or all. <br></h4>
+        <hr>
+        <div>Select Themes:
+            <select class='form-control' id="amenities" >
+              <option >Village Amenities</option>
+              <option >Household Amenities</option>
+              <option >Town Amenities</option>
+              <option >Demographies</option>
+              <option >Ground water recharge priorities(GSDA)</option>
+              <option >Waterbodies</option>
+            </select>
+            <br>Select District:
+             <select class='form-control' name="field_name[]" style="">
+              <option value="All">All</option>
+              <optgroup label="Vidarbh(East)">
+                  <option value="Akola">Akola</option>
+                  <option value="Amrawati">Amrawati</option>
+                  <option value="Buldana">Buldana</option>
+                  <option value="Yavatmal">Yavatmal</option>
+                  <option value="Washim">Washim</option>
+              </optgroup>
+              <optgroup label="Marathwada">
+                  <option value="Aurangabad">Aurangabad</option>
+                  <option value="Beed">Beed</option>
+                  <option value="Jalna">Jalna</option>
+                  <option value="Osmanabad">Osmanabad</option>
+                  <option value="Nanded">Nanded</option>
+                  <option value="Latur">Latur</option>
+                  <option value="Parbhani">Parbhani</option>
+                  <option value="Hingoli">Hingoli</option>
+              </optgroup>
+              <!-- /dashboard/census -->
+              <optgroup label="Kokan">
+                  <option value="Mumbai City">Mumbai City</option>
+                  <option value="Mumbai Suburban">Mumbai Suburban</option>
+                  <option value="Thane">Thane</option>
+                  <option value="Palghar">Palghar</option>
+                  <option value="Raigad">Raigad</option>
+                  <option value="Ratnagiri">Ratnagiri</option>
+                  <option value="Sindhudurg">Sindhudurg</option>
+              </optgroup>
+    
+            <optgroup label="Vidarbh(West)">
+                  <option value="Bhandara">Bhandara</option>
+                  <option value="Gadchiroli">Gadchiroli</option>
+                  <option value="Chandrapur">Chandrapur</option>
+                  <option value="Gondia">Gondia</option>
+                  <option value="Nagpur">Nagpur</option>
+                  <option value="Wardha">Wardha</option>
+              </optgroup>
+    
+                <optgroup label="Khandesh">
+                  <option value="Ahmednagar">Ahmednagar</option>
+                  <option value="Dhule">Dhule</option>
+                  <option value="Jalgaon">Jalgaon</option>
+                  <option value="Nandurbar">Nandurbar</option>
+                  <option value="Nashik">Nashik</option>
+              </optgroup>
+    
+            
+                <optgroup label="Paschim Maharashtra">
+                  <option value="Kolhapur">Kolhapur</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Sangli">Sangli</option>
+                  <option value="Satara">Satara</option>
+                  <option value="Solapur">Solapur</option>
+              </optgroup>
+            </select> 
+    
+    
+    
+            <a href="javascript:void(0);" class="add_button" title="Add field"><button style="float: right;"><span class="fa fa-plus"></button></a>
+        </div>
     </div>
+    
+    <div id = 'selectedata'></div>
+    <button class = 'btn btn-success' onclick="showLayers()">Show Layers</button>
+    <!-- <button onclick="myDistrictLayerList.forEach(clearAllLayers)">Clear All Layers</button> -->
+    <button class = 'btn btn-danger'onclick="clearAllLayers()">Clear All Layers</button>
+    {% if user.groups.all.0.name != "restricted" %}
+    <button class = 'btn btn-dark'onclick="downloadLayers()">Download Layer</button>
+    <div class="alert alert-info">
+        <strong>Info!</strong> Select only single layer to download.
+      </div>
+      <div class="alert alert-warning">
+        <strong>!</strong> Please wait downloading may take some time.
+      </div>
+      <div style="text-align: center"> 
+        <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="fa fa-power-off"></span></button> 
+    </div>
+    <iframe id="my_iframe" style="display:none;"></iframe>
+    {% endif %}
+    {% if user.groups.all.0.name == "restricted" %}
+    <div class="alert alert-warning">
+        <strong>!</strong> please register to download layers.
+      </div>
+    {% endif%}
 </div>
 
-<div id = 'selectedata'></div>
-<button class = 'btn btn-success' onclick="showLayers()">Show Layers</button>
-<!-- <button onclick="myDistrictLayerList.forEach(clearAllLayers)">Clear All Layers</button> -->
-<button class = 'btn btn-danger'onclick="clearAllLayers()">Clear All Layers</button>
-{% if user.groups.all.0.name != "restricted" %}
-<button class = 'btn btn-dark'onclick="downloadLayers()">Download Layer</button>
-<div class="alert alert-info">
-    <strong>Info!</strong> Select only single layer to download.
-  </div>
-  <div class="alert alert-warning">
-    <strong>!</strong> Please wait downloading may take some time.
-  </div>
-  <div style="text-align: center"> 
-    <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="glyphicon glyphicon-off"></span></button> 
-</div>
-<iframe id="my_iframe" style="display:none;"></iframe>
-{% endif %}
-{% if user.groups.all.0.name == "restricted" %}
-<div class="alert alert-warning">
-    <strong>!</strong> please register to download layers.
-  </div>
-{% endif%}
-
-<script type="text/javascript">
+<script>
     var x = 1; //Initial field counter is 1
-$(document).ready(function(){
+// $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
@@ -179,7 +170,7 @@ $(document).ready(function(){
               <option value="Satara">Satara</option>
               <option value="Solapur">Solapur</option>
           </optgroup>
-        </select> <a href="javascript:void(0);" class="remove_button"><button style="float: right;"><span class="glyphicon glyphicon-minus"></button></a></div>`; //New input field html 
+        </select> <a href="javascript:void(0);" class="remove_button"><button style="float: right;"><span class="fa fa-minus"></button></a></div>`; //New input field html 
 
     
     
@@ -196,7 +187,7 @@ $(document).ready(function(){
         $(this).parent('div').remove(); //Remove field html
         x--; //Decrement field counter
     });
-});
+// });
 var myDistrictLayerList = [];
 
 function showLayers(){
@@ -228,7 +219,6 @@ var houseLayerCode = ['geonode:household','geonode:h_akola','geonode:h_amravati'
 var townLayerCode= ['geonode:town','geonode:t_akola','geonode:t_amravati','geonode:t_buldana','geonode:t_yavatmal','geonode:t_washim','geonode:t_aurangabad','geonode:t_beed','geonode:t_jalna','geonode:t_osmanabad','geonode:t_nanded','geonode:t_latur','geonode:t_parbhani','geonode:t_hingoli','geonode:t_mumbai_city','geonode:t_mumbai_suburban','geonode:t_thane','geonode:t_palghar','geonode:t_raigarh','geonode:t_ratnagiri','geonode:t_sindhudurg','geonode:t_bhandara','geonode:t_gadchiroli','geonode:t_chandrapur','geonode:t_gondiya','geonode:t_nagpur','geonode:t_wardha','geonode:t_ahmadnagar','geonode:t_dhule','geonode:t_jalgoan','geonode:t_nandurbar','geonode:t_nashik','geonode:t_kolhapur','geonode:t_pune','geonode:t_sangli','geonode:t_satara','geonode:t_solapur'];
 var demoLayerCode = ['geonode:demography','geonode:d_akola','geonode:d_amravati','geonode:d_buldhana','geonode:d_yavatmal','geonode:d_washim','geonode:d_aurangabad','geonode:d_beed','geonode:d_jalna','geonode:d_osmanabad','geonode:d_nanded','geonode:d_latur','geonode:d_parbhani','geonode:d_hingoli','geonode:d_mumbai_city','geonode:d_mumbai_suburban','geonode:d_thane','geonode:d_palghar','geonode:d_raigarh','geonode:d_ratnagiri','geonode:d_sindhudurg','geonode:d_bhandara','geonode:d_gadchiroli','geonode:d_chandrapur','geonode:d_gondia','geonode:d_nagpur','geonode:d_wardha','geonode:d_ahmadnagar','geonode:d_dhule','geonode:d_jalgaon','geonode:d_nandurbar','geonode:d_nashik','geonode:d_kolhapur','geonode:d_pune','geonode:d_sangli','geonode:d_satara','geonode:d_solapur'];
 
-var mymap = ""
 
 var districtLat = [19.076,20.7002,20.9374,20.4561,20.3888,20.139,19.8762,18.9891,19.8297,18.207,19.1383,18.4088,19.2644,19.5781,19.0176,19.1538,19.2183,19.6936,18.5158,16.9902,16.3492,21.0736,19.4969,19.9615,21.4624,21.1458,20.7453,19.0948,20.9042,21.0077,21.7469,19.9975,16.705,18.5204,16.8524,17.6805,17.6805];
 var districtLong = [72.8777,77.0082,77.7796,76.3637,78.1204,77.1025,75.3433,75.7601,75.88,76.1784,77.321,76.5604,76.6413,77.1025,72.8561,72.8752,72.9781,72.7655,73.1822,73.312,73.5594,79.8297,80.2767,79.2961,80.221,79.0882,78.6022,74.748,74.7749,75.5626,74.124,73.7898,74.2433,73.8567,74.5815,74.0183,74.0183];
@@ -344,130 +334,8 @@ else if(anemity == 'Household Amenities'){
 
 }
 </script>
-</div>
-        <!-- /view -->
-        <script>
-        // menu();
-        </script>
-        </div>
-    <!-- <div id="mapdiv" class="col-md-12"></div> -->
-<script>
-    var mymap;
-                var lyrOSM;
-                var lyrWatercolor;
-                var lyrTopo;
-                var lyrImagery;
-                var lyrOutdoors;
-                // var lyrChapultepec;
-                var mrkCurrentLocation;
-                var popZocalo;
-                var ctlAttribute;
-                var ctlScale;
-                var ctlPan;
-                var ctlZoomslider;
-                var ctlMouseposition;
-                var ctlMeasure;
-                var ctlEasybutton;
-                var ctlSidebar;
-                var ctlSearch;
-                var ctlLayers;
-                var objBasemaps;
-                var objOverlays;
-                var building, roads,primarys,districtL,wardl,ddwl,buildseg,corporatorwise,buildcomp,buildweight,compseg,punebuild,puneroad,punephotos;
-                var pondahl,pondasl,pondawl,pondafl,pondaol,pondalinelyr,pondapointlyr,pondapolygonlyr,voter_list;
-                var psl,pgl,pbul,pbl,lwardbl,raill,pondl,polyl,osmbl,mrll,hvll,bfrl,bfhvll,villagel,hlpcal,townl;
-                var mokhadavl;
-
-                // var source = L.wms.source(
-                //     "http://104.210.61.129/geoserver/wfs",
-                //     {
-                //         "format": "image/png",
-                //         "transparent": "true"
-                //     }        
-                //     );
-                
-                $(document).ready(function(){
-
-                    $("#add-district").on("click", function() {  
-                        $("#textboxDiv").append('<input type="textbox">');  
-                    });  
-                    $("#remove-district").on("click", function() {  
-                        $("#textboxDiv").children().last().remove();  
-                    });
-
-                     $('#text').hide();
-        
-                         $("#driver").click(function() {
-                         $('#text').toggle();
-                         });
-
-                         $('#upload').on('click', function() {
-        var file_data = $('#fileToUpload').prop('files')[0];   
-        var form_data = new FormData();                  
-        form_data.append('fileToUpload', file_data);
-        // alert(form_data);                             
-        $.ajax({
-            url: 'upload.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,                         
-            type: 'post',
-            success: function(php_script_response){
-                alert(php_script_response); // display response from the PHP script, if any
-            }
-            
-         });
-    });
-                    // mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
-                    // lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-                    // lyrTopo = L.tileLayer.provider('OpenTopoMap');
-                    // lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-                    // lyrOutdoors = L.tileLayer.provider('Thunderforest.Outdoors');
-                    // lyrWatercolor = L.tileLayer.provider('Stamen.Watercolor');
-                    // mymap.addLayer(lyrOSM);
-                    
-                    // lyrChapultepec = L.imageOverlay('img/chapultepec.png', [[19.42993,-99.20843],[19.40621,-99.17453]], {opacity:0.5}).addTo(mymap);
-                    
-                   
-                    // ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-                    
-                    // ctlPan = L.control.pan().addTo(mymap);
-                    // ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
-                    
-                    // ctlMeasure = L.control.polylineMeasure().addTo(mymap);
-                    // ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-                    
-                    // ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
-                    //    ctlSidebar.toggle(); 
-                    // }).addTo(mymap);
-
-                    // $("#closebutton").click(function(){
-                    //     ctlSidebar.toggle();
-                    // });
-
-                    // var helloPopup = L.popup().setContent('<h1>About US</h1><br><i>Primary objective of communitygis is to provide educational platform for learners to learn about spatial information and learn how these  modern tools can be used to solve real life problems. <br/><br/>It creates a platform for people who range from those who can contribute data ( mobile based point data collection to digitization of published maps) to those who can analyse the data to infer useful social knowledge.                    <br/><br/>It is a digital contraption needed to collect, aggregate , access and analyse data  finally provide decision support for to manipulate reality.                    <br/><br/>Since all source code is published , under GPL, any one can reproduce the technology , without any permission from makerGHAT.This has been created by volunteers and coordinated by www.makerghat.org<i>');
-
-                    // L.easyButton('glyphicon glyphicon-question-sign', function(btn, map){
-                    //     helloPopup.setLatLng(map.getCenter()).openOn(mymap);
-                    // }).addTo(mymap);
-
-                    
-                    
-                    
-                    // ctlLogo = L.control.attribution({position:'bottomright'}).addTo(mymap);
-                    
-       
-          
-                    
-                    
-                    
-                    
-                }); //end of ready function            
-    </script>
 
 
 
 
-    {% endblock %}
+{% endblock %}
