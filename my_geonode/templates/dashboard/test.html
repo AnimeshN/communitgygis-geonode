@@ -14,14 +14,14 @@
     }
 
     .nav-tabs{
-  background-color:#c3eccd;
+  background-color:#878f89;
 }
 </style>
 
 <style>
     table, th, td 
         {
-            border: solid 1px #DDD;
+            border-bottom: 1px solid #ddd;
             border-collapse: collapse;
             padding: 2px 3px;
             text-align: center;
@@ -29,9 +29,9 @@
         th {
             font-weight:bold;
         }
-
+    tr:hover {background-color: #303030;}
     .attri{
-  background-color: #EEEEEE;
+  background-color: rgb(245, 255, 238);
   width: 100%;
   text-align: left;
   border-collapse: collapse;
@@ -39,18 +39,12 @@
   height:400px;
     }
 
-    tr:nth-child(even) {
-  background: #D0E4F5;
-}
+    /* tr:nth-child(even) {
+  background: rgb(63, 153, 231) 154, 245);
+} */
 </style>
 <style>
     
-/* .select {
-    background:rgb(255,255,255);
-}
-.select.highlight {
-    background:rgb(26, 255, 0);
-} */
 
 .info {
     padding: 6px 8px;
@@ -77,13 +71,22 @@
     opacity: 0.7;
 }
 
+/* css to customize Leaflet default styles  */
+.leaflet-popup-content-wrapper {
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+}
+
+.leaflet-popup-content{
+    font-weight: bold;
+}
 
 </style>
 <!-- <div id="mapdiv" class="col-md-12"></div> -->
 
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
 
-  <h2 class="text-center">Thakkar Bappa Yojana</h2>
+  <h2 class="text-center">Thakkar Bappa Yojana(Palgarh)</h2>
   <hr>
  <!-- Tab for Report , Dashboard , Query Builder -->
   <div class="bs-example">
@@ -100,13 +103,13 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active text" id="home">
-            <h4 class="mt-2">Report</h4>
+            <h4 class="mt-2">Report</h4><br>
             
-            <br>Select Block:
+           
 
              <div class="tooltips" title="Please select the Block">
                 <select class = 'form-control' id="block" name="block">
-                    <option></option>
+                    <option>Please select block</option>
                      <optgroup label="Jawahar ITDP">
                              <option>Mokhada</option>
                              <option>Jawahar</option>
@@ -130,11 +133,13 @@
                 </div>
                 <br><br>
                <div class = 'text-center'> 
-              <button class = 'btn btn-success' onclick="display_layer()">Show Layer</button><br><br>
+              <button title="OK" class = 'btn btn-success' onclick="display_layer('OK')"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+              <button title="Not OK" class = 'btn btn-success' onclick="display_layer('Not OK')"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button><br><br>
 
-              <button class = 'btn btn-success' onclick="clear_layer()">Clear Layers</button><br><br>
+              <button title="Clear layers" class = 'btn btn-success' onclick="clear_layer()"><span class="fa fa-eraser"></span></button>
 
-              <button class = 'btn btn-success' id="displaytable" >Show Attribute Table</button><br><br>
+              <button title="Show Attribute table" class = 'btn btn-success' id="displaytable" ><i class="fa fa-table" aria-hidden="true"></i></button><br><br>
+              <button title="Show Attribute table" class = 'btn btn-success' id="downloadtable" >Download</button><br><br>
                 </div>
    
         </div>
@@ -158,10 +163,17 @@
 
 
     <script>
+
+
+(function() {
+   mymap.setView([19.6967, 72.7699],9);
+
+})();
+
 // dependent dropdown
 var structures = {
         'Mokhada': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Jawahar': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Jawahar': ['All','Borewell','Smashan Bhoomi'],
         'Vada': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
         'Vikramgarh': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
         'Dhanu': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
@@ -170,8 +182,11 @@ var structures = {
         'Vasai': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
     }
   
+  var palgarh_block = {'Mokhada':['Mokhada',19.9365, 73.3404],'Jawahar':['Jawhar',19.9077, 73.2355],'Vada':['Vada',19.6570, 73.1409],'Vikramgarh':['Vikramgad',19.7973, 73.0956],'Dhanu':['Dahanu',19.9903, 72.7397],'Talsari':['Talasari',20.1238, 72.9169],'Palgarh':['Palghar',19.6967, 72.7699],'Vasai':['Vasai',19.3919, 72.8397]};
     var $structures = $('#structure');
     $('#block').change(function () {
+        var block_pal = document.getElementById('block').value;
+        displayPolygon(palgarh_block[block_pal][0],palgarh_block[block_pal][1],palgarh_block[block_pal][2]);
         var block = $(this).val(), lcns = structures[block] || [];
         
         var html = $.map(lcns, function(lcn){
@@ -179,15 +194,19 @@ var structures = {
         }).join('');
         $structures.html(html)
     });
-// close button
 
-// $("#closebutton").click(function(){
-//     ctlSidebar.toggle();
-// });
+    // $('#structure').change(display_layer);
+
+    $("#structure").change({msg: "all"},  function(event) {
+    display_layer(event.data.msg);
+    
+});
+    
+
 var myLayerList = [];
     function putLayer(geonode_source){
         console.log('jjj');
-        mymap.setView([19.9365, 73.3404], 11);
+        // mymap.setView([19.9365, 73.3404], 11);
         var index = myLayerList.indexOf(geonode_source);
         if(index >= 0){
             console.log('remove'+geonode_source)
@@ -211,42 +230,6 @@ var geojson;
 var base_url = "http://localhost/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
-// var source = L.wms.source(
-// "http://localhost/geoserver/wms",
-// {
-//     "format": "image/png",
-//     "transparent": "true"
-// }        
-// );
-
-// $('.select').click(function () {
-//         $(this).toggleClass('highlight');
-
-        
-//     });
-
-// mymap = L.map('mapdiv', {center:[19.9374, 73.5364], zoom:9, zoomControl:false, attributionControl:false});
-// lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-// lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-// mymap.addLayer(lyrOSM);
-
-
-// objBasemaps = {
-//     "Open Street Maps": lyrOSM,
-//     "Imagery":lyrImagery
-// };
-
-// objOverlays = {
-// };
-
-// var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-// var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-// var ctlPan = L.control.pan().addTo(mymap);
-
-// var ctlEasybutton = L.easyButton('fa fa-arrows-alt-h', function(){
-//     ctlSidebar.toggle(); 
-// }).addTo(mymap);
-// var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
 var layer_name;
 
 
@@ -261,12 +244,7 @@ const fontAwesomeIcon = L.divIcon({
 
 
 var LayerList = [];
-// var baseballIcon = L.icon({
-// 		iconUrl: '{% static "images/icons/tdsc/well.svg" %}',
-// 		iconSize: [32, 37],
-// 		iconAnchor: [16, 37],
-// 		popupAnchor: [0, -28]
-// 	});
+var pointLayerList = [];
 
 function getColor(d) {
     return d > 6 ? '#FF0000' :
@@ -275,21 +253,31 @@ function getColor(d) {
                       '#FFEDA0';
 }
 
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.S_Stress),
-        weight: 2,
+        fillColor: getRandomColor(),
+        weight: 5,
         opacity: 1,
         color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.7
+        fillOpacity: .9
     };
 }
 
-function display_layer(){
+function display_layer(assessment){
+    // alert(event.data.msg);
     var name_and_icons = fetch_layer_name();
     console.log(name_and_icons[0],name_and_icons[1]);
-    displayPoints(name_and_icons[0],name_and_icons[1]);
+    displayPoints(name_and_icons[0],name_and_icons[1],assessment);
 
 }
 
@@ -298,38 +286,6 @@ function clear_layer(){
 }
 
 
-// function displayLayer(){
-// mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
-// fetch(url)
-// .then(
-//     function(response) {
-//     if (response.status !== 200) {
-//         console.log('Looks like there was a problem. Status Code: ' +
-//         response.status);
-//         return;
-//     }
-
-//     // Examine the text in the response
-//     response.json().then(function(stressData) {
-//         console.log(stressData.features)
-//         geojson = L.geoJson(stressData.features,{style: style}).addTo(mymap);
-//         mymap.setView([19.9365, 73.3404], 11);
-//         geojson = L.geoJson(stressData.features, {
-//         style: style,
-//         onEachFeature: onEachFeature
-//     }).addTo(mymap);
-//     mymap.spin(false);
-
-//     });
-
-
-//     }
-// )
-// .catch(function(err) {
-//     console.log('Fetch Error :-S', err);
-// });
-    
-// }
 function fetch_layer_name(){
     var layer_name,structureIcon;
     var block = document.getElementById('block').value;
@@ -355,7 +311,8 @@ function fetch_layer_name(){
 
     
 }
-function displayPoints(layer_name,icon){
+function displayPoints(layer_name,icon,assessment){
+    pointLayerList.forEach(layer => mymap.removeLayer(layer));
 // if(mymap.hasLayer(geojson)){
 // mymap.removeLayer(geojson);
 // }else{
@@ -377,15 +334,25 @@ fetch(url)
 
         //attribute table
         // makeAttributeTable(stressData.features);
-        mymap.setView([19.9365, 73.3404], 11);
+        // mymap.setView([19.9365, 73.3404], 11);
 
         geojson = L.geoJson(stressData.features, {
             pointToLayer: function (feature, latlng) {
 		return L.marker(latlng, {icon: icon});
 	},
-    onEachFeature: onEachFeatureForPoint
+    onEachFeature: onEachFeatureForPoint,
+    filter: function(feature, layer) {
+                if(assessment == 'all'){
+                    return true;
+                }else{
+                    return feature.properties.Final_Asse == assessment;
+                    
+                }
+                
+            }
     }).addTo(mymap);
     LayerList.push(geojson);
+    pointLayerList.push(geojson);
     mymap.spin(false);
     url = "";
 
@@ -402,13 +369,15 @@ fetch(url)
     
 }
 
-displayPolygon();
 
-function displayPolygon(){
-if(mymap.hasLayer(geojson)){
-mymap.removeLayer(geojson);
-}else{
-fetch(base_url + "&typeName=geonode%3Astress")
+
+function displayPolygon(blockName,lat,long){
+// if(mymap.hasLayer(geojson)){
+// mymap.removeLayer(geojson);
+// }else{
+layer_url =base_url + "&typeName=geonode%3Apalgarh_block&cql_filter=tal_name='"+blockName+"'";
+console.log(layer_url);
+fetch(layer_url)
 .then(
     function(response) {
     if (response.status !== 200) {
@@ -418,12 +387,13 @@ fetch(base_url + "&typeName=geonode%3Astress")
     }
 
     // Examine the text in the response
-    response.json().then(function(stressData) {
+    response.json().then(function(geojsonData) {
         // console.log(stressData.features);
-        mymap.setView([19.9365, 73.3404], 11);
-        geojson = L.geoJson(stressData.features, {
-        
+        mymap.setView([lat, long], 11);
+        geojson = L.geoJson(geojsonData.features, {
+        style : style
     }).addTo(mymap);
+    LayerList.push(geojson);
 
     });
 
@@ -433,7 +403,7 @@ fetch(base_url + "&typeName=geonode%3Astress")
 .catch(function(err) {
     console.log('Fetch Error :-S', err);
 });
-}
+// }
 
     
 }
@@ -446,9 +416,24 @@ fetch(base_url + "&typeName=geonode%3Astress")
 function onEachFeatureForPoint(feature, layer) {
 	// does this feature have a property named popupContent?
 	if (feature.properties && feature.properties.No_of_Pipe) {
-		layer.bindPopup("No of pipes in culvert:"+feature.properties.No_of_Pipe);
+		layer.bindPopup("<table class = 'popupclass' ><tr><td>Habitation:</td><td>"+feature.properties.Habitation+"</td></tr>"+
+        "<tr><td>Sanction Year:</td><td>"+feature.properties.Sanction_y+"</td></tr>"+
+        "<tr><td>Budget:</td><td>"+feature.properties.Budget+"</td></tr>"+
+        "<tr><td>Number of pipes:</td><td>"+feature.properties.No_of_Pipe+"</td></tr>"+
+        "<tr><td>Width of pipes:</td><td>"+feature.properties.Width+"</tr>"+
+        "<tr><td>Final Assessment:</td><td>"+feature.properties.Final_Asse+"</td></tr></table>");
+
+             
+
+        
 	}else if(feature.properties && feature.properties.Diameter){
-		layer.bindPopup(feature.properties.Diameter);
+		layer.bindPopup("<table class = 'popupclass ><tr><td>Habitation:</td><td>"+feature.properties.Habitation+"</td></tr>"+
+        "<tr><td>Sanction Year:</td><td>"+feature.properties.Sanction_y+"</td></tr>"+
+        "<tr><td>Budget:</td><td>"+feature.properties.Budget+"</td></tr>"+
+        "<tr><td>Depth:</td><td>"+feature.properties.Depth+"</td></tr>"+
+        "<tr><td>Diameter:</td><td>"+feature.properties.Diameter+"</tr>"+
+        "<tr><td>Material Used:</td><td>"+feature.properties.Material+"</tr>"+
+        "<tr><td>Final Assessment:</td><td>"+feature.properties.Final_Asse+"</td></tr></table>");
     }
 }
 
@@ -527,7 +512,6 @@ fetch(url)
 
         // CREATE DYNAMIC TABLE.
         var table = document.createElement("table");
-
         // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
         var tr = table.insertRow(-1);                   // TABLE ROW.
@@ -557,6 +541,7 @@ fetch(url)
 
     div.innerHTML += table;
     url = "";
+    console.log(table);
 
     });
 
