@@ -52,7 +52,7 @@
   bottom: 0;
   right: 0;
   width: 70%;
-  border: 3px solid rgb(109, 109, 109);
+  /* border: 3px solid rgb(109, 109, 109); */
 
 }
 </style>
@@ -99,7 +99,7 @@
 
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
 
-  <h2 class="text-center">Thakkar Bappa Yojana(Palgarh)</h2>
+  <h2 class="text-center">Thakkar Bappa Yojana<br>Palgarh</h2>
   <hr>
  <!-- Tab for Report , Dashboard , Query Builder -->
   <div class="bs-example">
@@ -217,23 +217,23 @@ var structures = {
 });
     
 
-var myLayerList = [];
-    function putLayer(geonode_source){
-        console.log('jjj');
-        // mymap.setView([19.9365, 73.3404], 11);
-        var index = myLayerList.indexOf(geonode_source);
-        if(index >= 0){
-            console.log('remove'+geonode_source)
-            source.getLayer(geonode_source).addTo(mymap).remove(mymap);
-            myLayerList.splice(index,1);
+// var myLayerList = [];
+//     function putLayer(geonode_source){
+//         console.log('jjj');
+//         // mymap.setView([19.9365, 73.3404], 11);
+//         var index = myLayerList.indexOf(geonode_source);
+//         if(index >= 0){
+//             console.log('remove'+geonode_source)
+//             source.getLayer(geonode_source).addTo(mymap).remove(mymap);
+//             myLayerList.splice(index,1);
 
-        }else{
-            console.log('add:::::'+geonode_source);
-            // info.toFront(geonode_);
-            source.getLayer(geonode_source).addTo(mymap);
-            myLayerList.push(geonode_source);
-        }
-    }
+//         }else{
+//             console.log('add:::::'+geonode_source);
+//             // info.toFront(geonode_);
+//             source.getLayer(geonode_source).addTo(mymap);
+//             myLayerList.push(geonode_source);
+//         }
+//     }
 
 
 
@@ -241,7 +241,7 @@ var myLayerList = [];
 
 var geojson;
 
-var base_url = "http://localhost/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
 // console.log(attribute_table);
@@ -291,8 +291,14 @@ function style(feature) {
 function display_layer(assessment){
     // alert(event.data.msg);
     var name_and_icons = fetch_layer_name();
-    console.log(name_and_icons[0],name_and_icons[1]);
-    displayPoints(name_and_icons[0],name_and_icons[1],assessment);
+    if(typeof name_and_icons[1] === 'undefined'){
+        mymap.messagebox.show('Please select block and structure');
+
+    }else{
+        displayPoints(name_and_icons[0],name_and_icons[1],assessment);
+
+    }
+
 
 }
 
@@ -305,7 +311,8 @@ function fetch_layer_name(){
     var layer_name,structureIcon;
     var block = document.getElementById('block').value;
     var structure = document.getElementById('structure').value;
-
+    console.log(block);
+    console.log(structure);
     switch(structure){
         case "Culvert":
             layer_name = "ThakkarBappaYojana_Mokhada_Culvert_1_00";
@@ -347,7 +354,7 @@ function displayPoints(layer_name,icon,assessment){
 // if(mymap.hasLayer(geojson)){
 // mymap.removeLayer(geojson);
 // }else{
-    console.log(layer_name);
+    // console.log(layer_name);
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 url = base_url + "&typeName=geonode%3A" + layer_name;
 fetch(url)
@@ -408,7 +415,7 @@ function displayPolygon(blockName,lat,long){
 // }else{
 LayerList.forEach(layer => mymap.removeLayer(layer));
 layer_url =base_url + "&typeName=geonode%3Apalgarh_block&cql_filter=tal_name='"+blockName+"'";
-console.log(layer_url);
+// console.log(layer_url);
 fetch(layer_url)
 .then(
     function(response) {
@@ -654,7 +661,7 @@ function create_property_json(feature){
 }
 
 $("#downloadtable").click(function(){
-    console.log(downloadThisTable);
+    // console.log(downloadThisTable);
     if(downloadThisTable){
         export_table_to_csv(downloadThisTable, "Assessment.csv");
     }else{

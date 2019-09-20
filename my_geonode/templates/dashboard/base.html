@@ -64,6 +64,12 @@
 <script src = "{% static 'leaflet.awesome-markers.js' %}"></script>
 <link rel="stylesheet" href="{% static 'leaflet.awesome-markers.css' %}">
 
+
+
+<!-- leaflet-messagebox-->
+<script src = "{% static 'leaflet-messagebox.js' %}"></script>
+<link rel="stylesheet" href="{% static 'leaflet-messagebox.css' %}">
+
    
   </head>
 
@@ -89,7 +95,9 @@ var source = L.wms.source(
       }        
   );
 
-  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false});
+  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false,messagebox: true});
+  mymap.messagebox.options.timeout = 5000;
+  mymap.messagebox.setPosition("bottomright");
   lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
   lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
   mymap.addLayer(lyrOSM);

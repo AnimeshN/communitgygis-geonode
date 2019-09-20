@@ -63,6 +63,9 @@ def tdsc(request):
 def test_animesh(request):
     return render(request,'dashboard/test.html')
 
+def tby(request):
+    return render(request,'dashboard/tby.html')
+
 
 # def front(request):
 # 	return render(request,'map/front.html')
