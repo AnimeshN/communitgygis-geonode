@@ -70,7 +70,11 @@
 <script src = "{% static 'leaflet-messagebox.js' %}"></script>
 <link rel="stylesheet" href="{% static 'leaflet-messagebox.css' %}">
 
-   
+ <!-- leaflet-measure-->
+<script src = "{% static 'leaflet_measure/leaflet.measure.js' %}"></script>
+<link rel="stylesheet" href="{% static 'leaflet_measure/leaflet.measure.css' %}">
+
+
   </head>
 
   <body>
@@ -95,14 +99,39 @@ var source = L.wms.source(
       }        
   );
 
-  mymap = L.map('mapdiv', {center:[19.0760, 72.8777], zoom:13, zoomControl:false, attributionControl:false,messagebox: true});
+  mymap = L.map('mapdiv', {
+    center:[19.0760, 72.8777], 
+    zoom:13, zoomControl:false, 
+    attributionControl:false,
+    messagebox: true,
+    contextmenu: true,
+    measureControl: true
+  });
   mymap.messagebox.options.timeout = 5000;
   mymap.messagebox.setPosition("bottomright");
   lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
   lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
   mymap.addLayer(lyrOSM);
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
 
 
+function copyToClipboard(text) {
+    var dummy = document.createElement("textarea");
+    // dummy.style.display = 'none'
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+}
+
+mymap.on('contextmenu',function(e){
+  copyToClipboard(e.latlng.lat+","+e.latlng.lng);
+  mymap.messagebox.show("<h6>Latitude:<b>"+round(e.latlng.lat,4)+"</b> Longitude:<b>"+round(e.latlng.lng,4)+"</b> copied to clipboard</h6>");
+});
 
 
 

@@ -18,9 +18,7 @@ background-color:#63c54a;
 }
 
 
-.select.highlight {
-    background:rgb(179, 43, 25);
-}
+
 
 
 table, th, td {
@@ -37,15 +35,23 @@ tr:hover {
 }
 
 .myAttributeTable{
-  background-color: rgb(245, 255, 238);
+  background-color: rgb(255, 255, 255);
   text-align: left;
   border-collapse: collapse;
   overflow-y: scroll; 
-  height:400px;
+  max-height: 400px;
+  max-width: 100%;
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 70%;
+}
+
+.table-legend{
+  border-collapse: collapse;
+  padding: 2px 3px;
+  width: 100%;
+  /* font-weight: bold; */
+
 }
     
 
@@ -142,7 +148,33 @@ tr:hover {
               <button title="Clear layers" class = 'btn btn-success' onclick="clear_layer()"><span class="fa fa-eraser"></span></button>
 
               <button title="Show Attribute table" class = 'btn btn-success select' id="displaytable" ><i class="fa fa-table" aria-hidden="true"></i></button>
-              <button title="Download Attribute table" class = 'btn btn-success' id="downloadtable" ><i class="fa fa-download" aria-hidden="true"></i></button><br><br>
+              <!-- <button title="Download Attribute table" class = 'btn btn-success' id="downloadtable" ><i class="fa fa-download" aria-hidden="true"></i></button><br><br> -->
+            </div>
+
+            <br><br>
+            <!-- button legend -->
+            <div style="text-align: center">
+                <table class='table-legend'>
+                    <tr>
+                        <th colspan="2">Button discription</i></th>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" aria-hidden="true"></i></td>
+                        <td>Show structures with final assessment "OK"</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-thumbs-down" aria-hidden="true"></i></td>
+                        <td>Show structures with final assessment "Not OK"</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-eraser" aria-hidden="true"></i></td>
+                        <td>Clear Layers from map</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-table" aria-hidden="true"></i></td>
+                        <td>Show Attribute Table</td>
+                    </tr>
+                </table>
             </div>
    
         </div>
@@ -154,10 +186,19 @@ tr:hover {
             <h4 class="mt-2">Query Builder</h4>
             <p>User can build queries to analyse data.</p>
         </div>
+
+
+
+
+
     </div>
 </div>
 
 <!-- Tab ends here -->
+
+
+
+
 
  <div style="text-align: center"> 
         <button style="display: inline-block ;position: relative;top: 100px" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="fa fa-power-off"></span></button> 
@@ -242,11 +283,11 @@ function getRandomColor() {
 
 function style(feature) {
     return {
-        fillColor: getRandomColor(),
-        weight: 5,
+        fillColor: "#fff",
+        weight: 2,
         opacity: 1,
-        color: 'white',
-        fillOpacity: .9
+        color: 'black',
+        fillOpacity: 0
     };
 }
 
@@ -256,7 +297,7 @@ function display_layer(assessment){
         mymap.messagebox.show('Please select block and structure');
 
     }else{
-        displayPoints(name_and_icons[0],name_and_icons[1],assessment);
+        displayPoints(name_and_icons[0],assessment);
 
     }
 
@@ -308,9 +349,14 @@ function fetch_layer_name(){
 
     
 }
-function displayPoints(layer_name,icon,assessment){
-    pointLayerList.forEach(layer => mymap.removeLayer(layer));
 
+var geticon = function(){
+ return L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
+}
+
+
+function displayPoints(layer_name,assessment){
+pointLayerList.forEach(layer => mymap.removeLayer(layer));
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 url = base_url + "&typeName=geonode%3A" + layer_name;
 fetch(url)
@@ -327,7 +373,11 @@ fetch(url)
 
         geojson = L.geoJson(stressData.features, {
             pointToLayer: function (feature, latlng) {
-		return L.marker(latlng, {icon: icon});
+                if(feature.properties.Final_Asse === 'OK'){
+                    return L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'thumbs-up', markerColor: 'green', prefix: 'fa' }) });
+                }else{
+                    return L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'thumbs-down', markerColor: 'red', prefix: 'fa' }) });
+                }
 	},
     onEachFeature: onEachFeatureForPoint,
     filter: function(feature, layer) {
@@ -451,6 +501,10 @@ function onEachFeatureForPoint(feature, layer) {
 }
 
 
+function hideTable(){
+    mymap.removeControl(attribute_table);
+    ctlSidebar.show();
+}
 
 
 
@@ -459,16 +513,15 @@ var legend = L.control({position: 'bottomright'});
 var downloadThisTable;
 
 $("#displaytable").click(function(){
-    if (attribute_table._map) {
-        mymap.removeControl(attribute_table);
-        // attribute_table.removeFrom(mymap);
-    }
+    var name_and_icons = fetch_layer_name();
+    if(typeof name_and_icons[1] === 'undefined'){
+        mymap.messagebox.show('Please select block and structure');
 
-
-    else{
-
+    }else{
+        ctlSidebar.hide();
             attribute_table.onAdd = function(mymap){
             var div = L.DomUtil.create('div','myAttributeTable');
+            div.innerHTML += "<button style='float: right'class='btn btn-danger' onclick='hideTable()'><i class='fa fa-times-circle' aria-hidden='true'></i></button>";
             layer_name = fetch_layer_name();
             // if(layer_name[1] == undefined){
                 // mymap.messagebox.show("please select block and structure");
@@ -518,8 +571,7 @@ $("#displaytable").click(function(){
                                     
                                     div.appendChild(table);
 
-
-                                div.innerHTML += table;
+                                // div.innerHTML += table;
                                 url = "";
                                 downloadThisTable = table;   
                                 });
@@ -536,12 +588,8 @@ $("#displaytable").click(function(){
 
                 }
                
-
                 attribute_table.addTo(mymap);
-
     }
-
-
 });
 
 
@@ -605,10 +653,9 @@ function download_csv(csv, filename) {
     downloadLink.click();
 }
 
-$('.select').click(function () {
-        $(this).toggleClass('highlight')
-    })
 </script>
 
 
 {% endblock %}
+
+
