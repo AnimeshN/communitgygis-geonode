@@ -9,35 +9,32 @@
 
 
 <style>
-	.bs-example{
-    	margin: 20px;
-    }
-
-    .nav-tabs{
-  background-color:#63c54a;
+.bs-example{
+    margin: 20px;
 }
 
-/* .select {
-    background:rgb(38, 207, 52);
-} */
+.nav-tabs{
+background-color:#63c54a;
+}
+
+
 .select.highlight {
     background:rgb(179, 43, 25);
 }
 
-</style>
 
-<style>
-    table, th, td 
-        {
-            border-bottom: 1px solid #ddd;
-            border-collapse: collapse;
-            padding: 2px 3px;
-            text-align: center;
-        }
-        th {
-            font-weight:bold;
-        }
-    tr:hover {background-color: #6e6e6e;}
+table, th, td {
+    border-bottom: 1px solid #ddd;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+}
+th {
+    font-weight:bold;
+}
+tr:hover {
+    background-color: #6e6e6e;
+}
 
 .myAttributeTable{
   background-color: rgb(245, 255, 238);
@@ -45,18 +42,11 @@
   border-collapse: collapse;
   overflow-y: scroll; 
   height:400px;
-
-
-
   position: fixed;
   bottom: 0;
   right: 0;
   width: 70%;
-  /* border: 3px solid rgb(109, 109, 109); */
-
 }
-</style>
-<style>
     
 
 .info {
@@ -95,9 +85,8 @@
 }
 
 </style>
-<!-- <div id="mapdiv" class="col-md-12"></div> -->
 
-<div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- Main container -->
+<div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- side-bar container -->
 
   <h2 class="text-center">Thakkar Bappa Yojana<br>Palgarh</h2>
   <hr>
@@ -116,8 +105,8 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active text" id="home">
-            <h4 class="mt-2">Report</h4><br>
-            
+            <!-- <h4 class="mt-2">Report</h4><br> -->
+            <br>
            
 
              <div class="tooltips" title="Please select the Block">
@@ -140,7 +129,8 @@
 
 
 
-             <br>Select Structure:
+             <br>
+             
                 <div class="tooltips" title="Please select the structure.">
                     <select class= 'form-control' id="structure" name="structure" placeholder="Enter structure"></select>
                 </div>
@@ -174,26 +164,23 @@
     </div>
 </div>
 
-
-    <script>
-
-
+<script>
 (function() {
-   mymap.setView([19.6967, 72.7699],9);
-
+   const PALGARH_LAT_LONG = [19.6967, 72.7699]; 
+   mymap.setView(PALGARH_LAT_LONG,9);
 })();
 
 // dependent dropdown
 var structures = {
     // 'Concrete Gutter'
-        'Mokhada': ['All','Public Toilets', 'Culvert','Dug well','Samaj Mandir','Smashan Bhoomi'],
-        'Jawahar': ['All','Borewell','Smashan Bhoomi'],
-        'Vada': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Vikramgarh': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Dhanu': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Talsari': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Palgarh': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
-        'Vasai': ['All','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Mokhada': ['Select Structure','Public Toilets', 'Culvert','Dug well','Samaj Mandir','Smashan Bhoomi'],
+        'Jawahar': ['Select Structure','Borewell','Smashan Bhoomi'],
+        'Vada': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Vikramgarh': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Dhanu': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Talsari': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Palgarh': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
+        'Vasai': ['Select Structure','Bitumen Road', 'Concrete Road', 'Culvert','Dug well','Gym','Public water supply (PWS)','Mangal Karyalaya','Borewell','Smashan Bhoomi'],
     }
   
   var palgarh_block = {'Mokhada':['Mokhada',19.9365, 73.3404],'Jawahar':['Jawhar',19.9077, 73.2355],'Vada':['Vada',19.6570, 73.1409],'Vikramgarh':['Vikramgad',19.7973, 73.0956],'Dhanu':['Dahanu',19.9903, 72.7397],'Talsari':['Talasari',20.1238, 72.9169],'Palgarh':['Palghar',19.6967, 72.7699],'Vasai':['Vasai',19.3919, 72.8397]};
@@ -209,42 +196,17 @@ var structures = {
         $structures.html(html)
     });
 
-    // $('#structure').change(display_layer);
 
     $("#structure").change({msg: "all"},  function(event) {
     display_layer(event.data.msg);
     
 });
     
-
-// var myLayerList = [];
-//     function putLayer(geonode_source){
-//         console.log('jjj');
-//         // mymap.setView([19.9365, 73.3404], 11);
-//         var index = myLayerList.indexOf(geonode_source);
-//         if(index >= 0){
-//             console.log('remove'+geonode_source)
-//             source.getLayer(geonode_source).addTo(mymap).remove(mymap);
-//             myLayerList.splice(index,1);
-
-//         }else{
-//             console.log('add:::::'+geonode_source);
-//             // info.toFront(geonode_);
-//             source.getLayer(geonode_source).addTo(mymap);
-//             myLayerList.push(geonode_source);
-//         }
-//     }
-
-
-
-
-
 var geojson;
-
-var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+const domain = ['https://makerghat.urbansciences.in/','http://localhost/'];
+var base_url = domain[0] + "geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
-// console.log(attribute_table);
 var layer_name;
 
 
@@ -289,7 +251,6 @@ function style(feature) {
 }
 
 function display_layer(assessment){
-    // alert(event.data.msg);
     var name_and_icons = fetch_layer_name();
     if(typeof name_and_icons[1] === 'undefined'){
         mymap.messagebox.show('Please select block and structure');
@@ -311,15 +272,13 @@ function fetch_layer_name(){
     var layer_name,structureIcon;
     var block = document.getElementById('block').value;
     var structure = document.getElementById('structure').value;
-    console.log(block);
-    console.log(structure);
     switch(structure){
         case "Culvert":
             layer_name = "ThakkarBappaYojana_Mokhada_Culvert_1_00";
             structureIcon = L.AwesomeMarkers.icon({icon: 'bars', markerColor: 'red', prefix: 'fa' });
             break;
         case "Dug well":
-            layer_name = "ThakkarBappaYojana_Mokhada_Well_1_00";
+            layer_name = "ThakkarBappaYojana_Mokhada_Well_1_0";
             structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
             break;
         case "Public Toilets":
@@ -331,7 +290,7 @@ function fetch_layer_name(){
             structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
             break;
         case "Samaj Mandir":
-            layer_name = "ThakkarBappaYojana_Mokhada_SamajMandir_1_0";
+            layer_name = "ThakkarBappaYojana_Mokhada_SamajMandir_1_01";
             structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
             break;
         case "Smashan Bhoomi":
@@ -351,10 +310,7 @@ function fetch_layer_name(){
 }
 function displayPoints(layer_name,icon,assessment){
     pointLayerList.forEach(layer => mymap.removeLayer(layer));
-// if(mymap.hasLayer(geojson)){
-// mymap.removeLayer(geojson);
-// }else{
-    // console.log(layer_name);
+
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 url = base_url + "&typeName=geonode%3A" + layer_name;
 fetch(url)
@@ -368,11 +324,6 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        console.log(stressData.features);
-
-        //attribute table
-        // makeAttributeTable(stressData.features);
-        // mymap.setView([19.9365, 73.3404], 11);
 
         geojson = L.geoJson(stressData.features, {
             pointToLayer: function (feature, latlng) {
@@ -410,12 +361,8 @@ fetch(url)
 
 
 function displayPolygon(blockName,lat,long){
-// if(mymap.hasLayer(geojson)){
-// mymap.removeLayer(geojson);
-// }else{
 LayerList.forEach(layer => mymap.removeLayer(layer));
 layer_url =base_url + "&typeName=geonode%3Apalgarh_block&cql_filter=tal_name='"+blockName+"'";
-// console.log(layer_url);
 fetch(layer_url)
 .then(
     function(response) {
@@ -427,7 +374,6 @@ fetch(layer_url)
 
     // Examine the text in the response
     response.json().then(function(geojsonData) {
-        // console.log(stressData.features);
         mymap.setView([lat, long], 11);
         geojson = L.geoJson(geojsonData.features, {
         style : style
@@ -442,15 +388,9 @@ fetch(layer_url)
 .catch(function(err) {
     console.log('Fetch Error :-S', err);
 });
-// }
 
     
 }
-
-
-// function zoomToFeature(e) {
-//     mymap.fitBounds(e.target.getBounds());
-// }
 
 function onEachFeatureForPoint(feature, layer) {
 	// does this feature have a property named popupContent?
@@ -510,38 +450,6 @@ function onEachFeatureForPoint(feature, layer) {
     }
 }
 
-// function onEachFeature(feature, layer) {
-//     layer.on({
-//         mouseover: highlightFeature,
-//         mouseout: resetHighlight,
-//         click: zoomToFeature
-//     });
-// }
-// function highlightFeature(e) {
-//     var layer = e.target;
-
-//     layer.setStyle({
-//         weight: 5,
-//         color: '#666',
-//         dashArray: '',
-//         fillOpacity: 0.7
-        
-//     });
-//     info.update(layer.feature.properties);
-//     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-//         layer.bringToFront();
-//     }
-// }
-
-// function resetHighlight(e) {
-//     geojson.resetStyle(e.target);
-//     info.update();
-// }
-
-
-//  custom control 
-
-
 
 
 
@@ -549,13 +457,6 @@ function onEachFeatureForPoint(feature, layer) {
 
 var legend = L.control({position: 'bottomright'});
 var downloadThisTable;
-
-
-// attribute_table.update = function(mymap){
-//     this.div.innerHTML += "hello";
-// }
-
-
 
 $("#displaytable").click(function(){
     if (attribute_table._map) {
@@ -594,19 +495,16 @@ $("#displaytable").click(function(){
                                         }
                                     }
 
-                                    // CREATE DYNAMIC TABLE.
                                     var table = document.createElement("table");
-                                    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-                                    var tr = table.insertRow(-1);                   // TABLE ROW.
+                                    var tr = table.insertRow(-1);                   
 
                                     for (var i = 0; i < col.length; i++) {
-                                        var th = document.createElement("th");      // TABLE HEADER.
+                                        var th = document.createElement("th");      
                                         th.innerHTML = col[i];
                                         tr.appendChild(th);
                                     }
 
-                                    // ADD JSON DATA TO THE TABLE AS ROWS.
                                     for (var i = 0; i < propsJSON.length; i++) {
 
                                         tr = table.insertRow(-1);
@@ -617,10 +515,7 @@ $("#displaytable").click(function(){
                                         }
                                     }
 
-                                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-                                    // var divContainer = document.getElementById("attri");
-                                    // divContainer.innerHTML = "";
-                                    // ctlSidebar.hide();
+                                    
                                     div.appendChild(table);
 
 
@@ -636,7 +531,7 @@ $("#displaytable").click(function(){
                                 console.log('Fetch Error :-S', err);
                             });
                             return div;
-                            // }
+                        
 
 
                 }
@@ -661,7 +556,6 @@ function create_property_json(feature){
 }
 
 $("#downloadtable").click(function(){
-    // console.log(downloadThisTable);
     if(downloadThisTable){
         export_table_to_csv(downloadThisTable, "Assessment.csv");
     }else{
@@ -682,7 +576,6 @@ function export_table_to_csv(html, filename) {
 		csv.push(row.join(","));		
 	}
 
-    // Download CSV
     download_csv(csv.join("\n"), filename);
 }
 
