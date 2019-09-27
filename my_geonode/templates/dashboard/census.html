@@ -48,10 +48,10 @@ table, th, td
         <hr>
         <div>Select Themes:
             <select class='form-control' id="amenities" >
-              <!-- <option >Village Amenities</option> -->
-              <!-- <option >Household Amenities</option> -->
-              <!-- <option >Town Amenities</option> -->
-              <option >Demographies</option>
+              <option>Village Amenities</option>
+              <option>Household Amenities</option>
+              <option>Town Amenities</option>
+              <option >Demographics</option>
               <!-- <option >Ground water recharge priorities(GSDA)</option> -->
               <!-- <option >Waterbodies</option> -->
             </select>
@@ -252,11 +252,17 @@ function downloadLayers(){
 //object
 var listOfDistrict = ['All','Akola','Amrawati','Buldana','Yavatmal','Washim','Aurangabad','Beed','Jalna','Osmanabad','Nanded','Latur','Parbhani','Hingoli','Mumbai City','Mumbai Suburban','Thane','Palghar','Raigad','Ratnagiri','Sindhudurg','Bhandara','Gadchiroli','Chandrapur','Gondia','Nagpur','Wardha','Ahmednagar','Dhule','Jalgaon','Nandurbar','Nashik','Kolhapur','Pune','Sangli','Satara','Solapur'];
 
-var villageLayerCode = ['geonode:village_1','geonode:akola','geonode:amravati','geonode:buldhana','geonode:yavatmal','geonode:washim','geonode:aurangabad','geonode:beed','geonode:jalna','geonode:osmanabad','geonode:nanded','geonode:latur','geonode:parbhani','geonode:hingoli','','','geonode:v_thane','geonode:v_palghar','geonode:raigad','geonode:ratnagiri','geonode:sindhudurg','geonode:bhandara','geonode:gadchiroli','geonode:chandrapur','geonode:gondia','geonode:nagpur','geonode:wardha','geonode:ahmednagar','geonode:dhule','geonode:jalgaon','geonode:nandurbar','geonode:nashik','geonode:kolhapur','geonode:pune','geonode:sangli','geonode:satara','geonode:solapur']
-var houseLayerCode = ['geonode:household','geonode:h_akola','geonode:h_amravati','geonode:h_buldhana','geonode:h_yavatmal','geonode:h_washim','geonode:h_aurangabad','geonode:h_beed','geonode:h_jalna','geonode:h_osmanabad','geonode:h_nanded','geonode:h_latur','geonode:h_parbhani','geonode:h_hingoli','geonode:h_mumbai_city','geonode:h_mumbai_suburban','geonode:h_thane','geonode:h_palghar','geonode:h_raigarh','geonode:h_ratnagiri','geonode:h_sindhudurg','geonode:h_bhandara','geonode:h_gadchiroli','geonode:h_chandrapur','geonode:h_gondia','geonode:h_nagpur','geonode:h_wardha','geonode:h_ahmadnagar','geonode:h_dhule','geonode:h_jalgaon','geonode:h_nandurbar','geonode:h_nashik','geonode:h_kolhapur','geonode:h_pune','geonode:h_sangli','geonode:h_satara','geonode:h_solapur'];
-var townLayerCode= ['geonode:town','geonode:t_akola','geonode:t_amravati','geonode:t_buldana','geonode:t_yavatmal','geonode:t_washim','geonode:t_aurangabad','geonode:t_beed','geonode:t_jalna','geonode:t_osmanabad','geonode:t_nanded','geonode:t_latur','geonode:t_parbhani','geonode:t_hingoli','geonode:t_mumbai_city','geonode:t_mumbai_suburban','geonode:t_thane','geonode:t_palghar','geonode:t_raigarh','geonode:t_ratnagiri','geonode:t_sindhudurg','geonode:t_bhandara','geonode:t_gadchiroli','geonode:t_chandrapur','geonode:t_gondiya','geonode:t_nagpur','geonode:t_wardha','geonode:t_ahmadnagar','geonode:t_dhule','geonode:t_jalgoan','geonode:t_nandurbar','geonode:t_nashik','geonode:t_kolhapur','geonode:t_pune','geonode:t_sangli','geonode:t_satara','geonode:t_solapur'];
+// var villageLayerCode = ['geonode:village_1','geonode:akola','geonode:amravati','geonode:buldhana','geonode:yavatmal','geonode:washim','geonode:aurangabad','geonode:beed','geonode:jalna','geonode:osmanabad','geonode:nanded','geonode:latur','geonode:parbhani','geonode:hingoli','','','geonode:v_thane','geonode:v_palghar','geonode:raigad','geonode:ratnagiri','geonode:sindhudurg','geonode:bhandara','geonode:gadchiroli','geonode:chandrapur','geonode:gondia','geonode:nagpur','geonode:wardha','geonode:ahmednagar','geonode:dhule','geonode:jalgaon','geonode:nandurbar','geonode:nashik','geonode:kolhapur','geonode:pune','geonode:sangli','geonode:satara','geonode:solapur']
+// var houseLayerCode = ['geonode:household','geonode:h_akola','geonode:h_amravati','geonode:h_buldhana','geonode:h_yavatmal','geonode:h_washim','geonode:h_aurangabad','geonode:h_beed','geonode:h_jalna','geonode:h_osmanabad','geonode:h_nanded','geonode:h_latur','geonode:h_parbhani','geonode:h_hingoli','geonode:h_mumbai_city','geonode:h_mumbai_suburban','geonode:h_thane','geonode:h_palghar','geonode:h_raigarh','geonode:h_ratnagiri','geonode:h_sindhudurg','geonode:h_bhandara','geonode:h_gadchiroli','geonode:h_chandrapur','geonode:h_gondia','geonode:h_nagpur','geonode:h_wardha','geonode:h_ahmadnagar','geonode:h_dhule','geonode:h_jalgaon','geonode:h_nandurbar','geonode:h_nashik','geonode:h_kolhapur','geonode:h_pune','geonode:h_sangli','geonode:h_satara','geonode:h_solapur'];
+// var townLayerCode= ['geonode:town','geonode:t_akola','geonode:t_amravati','geonode:t_buldana','geonode:t_yavatmal','geonode:t_washim','geonode:t_aurangabad','geonode:t_beed','geonode:t_jalna','geonode:t_osmanabad','geonode:t_nanded','geonode:t_latur','geonode:t_parbhani','geonode:t_hingoli','geonode:t_mumbai_city','geonode:t_mumbai_suburban','geonode:t_thane','geonode:t_palghar','geonode:t_raigarh','geonode:t_ratnagiri','geonode:t_sindhudurg','geonode:t_bhandara','geonode:t_gadchiroli','geonode:t_chandrapur','geonode:t_gondiya','geonode:t_nagpur','geonode:t_wardha','geonode:t_ahmadnagar','geonode:t_dhule','geonode:t_jalgoan','geonode:t_nandurbar','geonode:t_nashik','geonode:t_kolhapur','geonode:t_pune','geonode:t_sangli','geonode:t_satara','geonode:t_solapur'];
 //var demoLayerCode = ['geonode:demography','geonode:d_akola','geonode:d_amravati','geonode:d_buldhana','geonode:d_yavatmal','geonode:d_washim','geonode:d_aurangabad','geonode:d_beed','geonode:d_jalna','geonode:d_osmanabad','geonode:d_nanded','geonode:d_latur','geonode:d_parbhani','geonode:d_hingoli','geonode:d_mumbai_city','geonode:d_mumbai_suburban','geonode:d_thane','geonode:d_palghar','geonode:d_raigarh','geonode:d_ratnagiri','geonode:d_sindhudurg','geonode:d_bhandara','geonode:d_gadchiroli','geonode:d_chandrapur','geonode:d_gondia','geonode:d_nagpur','geonode:d_wardha','geonode:d_ahmadnagar','geonode:d_dhule','geonode:d_jalgaon','geonode:d_nandurbar','geonode:d_nashik','geonode:d_kolhapur','geonode:d_pune','geonode:d_sangli','geonode:d_satara','geonode:d_solapur'];
-var demoLayerCode = ['geonode:demography','akola','amravati','buldhana','yavatmal','washim','aurangabad','beed','jalna','osmanabad','nanded','latur','parbhani','hingoli','mumbai_city','mumbai_suburban','thane','palghar','raigarh','ratnagiri','sindhudurg','bhandara','gadchiroli','chandrapur','gondia','nagpur','wardha','ahmadnagar','dhule','jalgaon','nandurbar','nashik','kolhapur','pune','sangli','satara','solapur'];
+var villageLayerCode = ['geonode:villagenumeric','Akola','Amravati','Buldana','Yavatmal','Washim','Aurangabad','Bid','Jalna','Osmanabad','Nanded','Latur','Parbhani','Hingoli','mumbai_city','mumbai_suburban','Thane','Palghar','Raigarh','Ratnagiri','Sindhudurg','Bhandara','Gadchiroli','Chandrapur','Gondia','Nagpur','Wardha','Ahmadnagar','Dhule','Jalgaon','Nandurbar','Nashik','Kolhapur','Pune','Sangli','Satara','Solapur'];
+
+var houseLayerCode = ['geonode:household','Akola','Amravati','Buldana','Yavatmal','Washim','Aurangabad','Bid','Jalna','Osmanabad','Nanded','Latur','Parbhani','Hingoli','mumbai_city','mumbai_suburban','Thane','Palghar','Raigarh','Ratnagiri','Sindhudurg','Bhandara','Gadchiroli','Chandrapur','Gondia','Nagpur','Wardha','Ahmadnagar','Dhule','Jalgaon','Nandurbar','Nashik','Kolhapur','Pune','Sangli','Satara','Solapur'];
+
+var townLayerCode = ['geonode:town','AKOLA','AMRAVATI','BULDANA','YAVATMAL','WASHIM','AURANGABAD','BID','JALNA','OSMANABAD','NANDED','LATUR','PARBHANI','HINGOLI *','mumbai_city','mumbai_suburban','THANE','Palghar','RAIGARH','RATNAGIRI','SINDHUDURG','BHANDARA','GADCHIROLI','CHANDRAPUR','GONDIYA *','NAGPUR','WARDHA','AHMADNAGAR','DHULE','JALGAON','NANDURBAR','NASHIK','KOLHAPUR','PUNE','SANGLI','SATARA','SOLAPUR'];
+
+var demoLayerCode = ['geonode:maha_demography','akola','amravati','buldhana','yavatmal','washim','aurangabad','beed','jalna','osmanabad','nanded','latur','parbhani','hingoli','mumbai_city','mumbai_suburban','thane','palghar','raigarh','ratnagiri','sindhudurg','bhandara','gadchiroli','chandrapur','gondia','nagpur','wardha','ahmadnagar','dhule','jalgaon','nandurbar','nashik','kolhapur','pune','sangli','satara','solapur'];
 
 
 var districtLat = [19.076,20.7002,20.9374,20.4561,20.3888,20.139,19.8762,18.9891,19.8297,18.207,19.1383,18.4088,19.2644,19.5781,19.0176,19.1538,19.2183,19.6936,18.5158,16.9902,16.3492,21.0736,19.4969,19.9615,21.4624,21.1458,20.7453,19.0948,20.9042,21.0077,21.7469,19.9975,16.705,18.5204,16.8524,17.6805,17.6599];
@@ -285,28 +291,43 @@ function addMyNewLayers(amenity,dis){
     if(villageLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(villageLayerCode[index]).addTo(mymap);
+        var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+    layer_url =base_url + "&typeName=geonode%3Avillagenumeric&cql_filter=district_n='"+villageLayerCode[index]+"'";
+    console.log(layer_url);
+    displayPolygon(layer_url,districtLat[index],districtLong[index]);
+
+    //    console.log(layer_url);
+
         myDistrictLayerList.push(villageLayerCode[index]);
-        }
+        } 
     }
     else if(amenity == 'Household Amenities'){
     if(houseLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(houseLayerCode[index]).addTo(mymap);
+        var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+    layer_url =base_url + "&typeName=geonode%3Ahousehold&cql_filter=district_n='"+houseLayerCode[index]+"'";
+    displayPolygon(layer_url,districtLat[index],districtLong[index]);
+
+    //    console.log(layer_url);
+
         myDistrictLayerList.push(houseLayerCode[index]);
         } 
     }
-
     else if(amenity == 'Town Amenities'){
     if(townLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
-        source.getLayer(townLayerCode[index]).addTo(mymap);
+        var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+    layer_url =base_url + "&typeName=geonode%3Atown&cql_filter=district_n='"+townLayerCode[index]+"'";
+    displayPolygon(layer_url,districtLat[index],districtLong[index]);
+
+    //    console.log(layer_url);
+
         myDistrictLayerList.push(townLayerCode[index]);
-        }  
+        } 
     }
-    else if(amenity == 'Demographies'){
+    else if(amenity == 'Demographics'){
     if(demoLayerCode[index] == ''){
         alert('layer of '+ dis + ' not found');
     }else{
@@ -314,6 +335,8 @@ function addMyNewLayers(amenity,dis){
     var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
     //var base_url = "http://localhost/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
     layer_url =base_url + "&typeName=geonode%3Amaha_demography&cql_filter=district_n='"+demoLayerCode[index]+"'";
+    console.log(layer_url);
+    
     displayPolygon(layer_url,districtLat[index],districtLong[index]);
 
     //    console.log(layer_url);
@@ -392,10 +415,10 @@ info.onAdd = function (mymap) {
 info.update = function (props) {
     this._div.innerHTML = '<h4 class= "text-center">Village Information</h4><hr>' +  (props ?
         "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
-        "<tr><td>Village Name</td><td>"+props.area_name+"</td></tr>"+
-        "<tr><td>Total Population</td><td>"+props.tot_p+"</td></tr>"+
-        "<tr><td>Total Female Population</td><td>"+props.tot_f+"</td></tr>"+
-        "<tr><td>Total Male Population</td><td>"+props.tot_m+"</td></tr>"+
+        "<tr><td>Village Name</td><td>"+props.village_na+"</td></tr>"+
+        "<tr><td>Total Population</td><td>"+props.tot_popu+"</td></tr>"+
+        "<tr><td>Total Female Population</td><td>"+props.tot_popu_f+"</td></tr>"+
+        "<tr><td>Total Male Population</td><td>"+props.tot_popu_m+"</td></tr>"+
         "<tr><td>Illetrate population</td><td>"+props.p_ill+"</tr>"+
         "<tr><td>Literate: Population</td><td>"+props.p_lit+"</tr></table>"
         : 'Please hover over a village');
@@ -462,7 +485,7 @@ fetch(layer_url)
 
     // Examine the text in the response
     response.json().then(function(geojsonData) {
-        // console.log(geojsonData.features);
+        console.log(geojsonData.features);
         mymap.setView([lat, long], 11);
         geojson = L.geoJson(geojsonData.features, {
         style : style,
