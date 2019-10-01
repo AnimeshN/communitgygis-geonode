@@ -148,7 +148,7 @@ tr:hover {
     
 var geojson;
 const domain = ['https://makerghat.urbansciences.in/','http://localhost/'];
-var base_url = domain[1] + "geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+var base_url = domain[0] + "geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
 var layer_name;

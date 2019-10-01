@@ -67,6 +67,10 @@ def tby(request):
     return render(request,'dashboard/tby.html')
 
 
+def deonadi(request):
+    return render(request,'dashboard/tnc.html')
+
+
 # def front(request):
 # 	return render(request,'map/front.html')
 
