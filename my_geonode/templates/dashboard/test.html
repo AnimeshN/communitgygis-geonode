@@ -1,59 +1,21 @@
 {% extends 'dashboard/base.html' %}
 {% load static%}
 {% block content %}
-
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script src="{% static 'js/indexdb.js' %}"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+ 
+<!-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script> -->
+<!-- <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script> -->
+<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js'></script>
 
 
 <style>
-.bs-example{
-    margin: 20px;
-}
-
-.nav-tabs{
-background-color:#63c54a;
-}
-
-
-
-
-
-table, th, td {
-    border-bottom: 1px solid #ddd;
-    border-collapse: collapse;
-    padding: 2px 3px;
-    text-align: center;
-}
-th {
-    font-weight:bold;
-}
-tr:hover {
-    background-color: #6e6e6e;
-}
-
-.myAttributeTable{
-  background-color: rgb(255, 255, 255);
-  text-align: left;
-  border-collapse: collapse;
-  overflow-y: scroll; 
-  max-height: 400px;
-  max-width: 100%;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-
-.table-legend{
-  border-collapse: collapse;
-  padding: 2px 3px;
-  width: 100%;
-  /* font-weight: bold; */
-
-}
-    
 
 .info {
     padding: 6px 8px;
@@ -67,17 +29,7 @@ tr:hover {
     color: #777;
 }
 
-.legend {
-    line-height: 18px;
-    color: #555;
-}
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
-}
+
 
 /* css to customize Leaflet default styles  */
 .leaflet-popup-content-wrapper {
@@ -132,12 +84,14 @@ tr:hover {
 
     var deonadi = {'Deonadi Basin Villages':['deonadi_villages',19.8427, 74.0770],'Deonadi Streams':['major_streams_dev',19.8427, 74.0770],'Wells in catchment area':['deonadi_wells',19.8427, 74.0770]};
     $('#block').change(function () {
+        clear_layer();        
         var deo = document.getElementById('block').value;
         if(deo === 'Deonadi Streams'){
             displayPolygon(deonadi[deo][0],deonadi[deo][1],deonadi[deo][2]);      
             displayPolygon('devnadi_Cachment_generated',deonadi[deo][1],deonadi[deo][2]);      
             
         }if(deo === 'Wells in catchment area'){
+            displayPolygon('devnadi_Cachment_generated',deonadi[deo][1],deonadi[deo][2]);      
             displayPoints('deonadi_wells');      
 
         }else{
@@ -152,16 +106,6 @@ var base_url = domain[1] + "geoserver/geonode/ows?service=WFS&version=1.0.0&requ
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
 var layer_name;
-
-
-
-
-
-const fontAwesomeIcon = L.divIcon({
-    html: '<i class="fa fa-map-marker fa-4x"></i>',
-    iconSize: [20, 20],
-    className: 'myDivIcon'
-});
 
 
 var LayerList = [];
@@ -203,81 +147,22 @@ function river_style(feature) {
 }
 
 
-function display_layer(assessment){
-    var name_and_icons = fetch_layer_name();
-    if(typeof name_and_icons[1] === 'undefined'){
-        mymap.messagebox.show('Please select block and structure');
 
-    }else{
-LayerList.forEach(layer => mymap.removeLayer(layer));
-
-        displayPoints(name_and_icons[0],assessment);
-
-    }
-
-
-}
 
 function clear_layer(){
     LayerList.forEach(layer => mymap.removeLayer(layer));
 }
 
-
-function fetch_layer_name(){
-    var layer_name,structureIcon;
-    var block = document.getElementById('block').value;
-    var structure = document.getElementById('structure').value;
-    switch(structure){
-        case "Culvert":
-            layer_name = "ThakkarBappaYojana_Mokhada_Culvert_1_00";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bars', markerColor: 'red', prefix: 'fa' });
-            break;
-        case "Dug well":
-            layer_name = "ThakkarBappaYojana_Mokhada_Well_1_0";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-            break;
-        case "Public Toilets":
-            layer_name = "ThakkarBappaYojana_Mokhada_PublicToilet_1_0";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-            break;
-        case "Concrete Gutter":
-            layer_name = "ThakkarBappaYojana_Mokhada_Well_1_00";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-            break;
-        case "Samaj Mandir":
-            layer_name = "ThakkarBappaYojana_Mokhada_SamajMandir_1_01";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-            break;
-        case "Smashan Bhoomi":
-            layer_name = "ThakkarBappaYojana_Mokhada_Smashanbhoomi_1_0";
-            structureIcon = L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-            break;
-
-    }
-
-
-
-
-    var name_and_style = [layer_name,structureIcon];
-    return name_and_style;
-
-    
-}
-
-var geticon = function(){
- return L.AwesomeMarkers.icon({icon: 'bullseye', markerColor: 'blue', prefix: 'fa' });
-}
-
 function onEachFeaturePoint(feature, layer) {
 	// does this feature have a property named popupContent?
-	
 		layer.bindPopup(feature.properties.Name);
         console.log(feature.properties.Name);
 	
 }
+var markerClusters = L.markerClusterGroup({"chunkedLoading": true});
 
+console.log(markerClusters);
 function displayPoints(layer_name,assessment){
-pointLayerList.forEach(layer => mymap.removeLayer(layer));
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 url =base_url + "&typename=geonode%3A"+layer_name;
 var geojsonMarkerOptions = {
@@ -300,13 +185,16 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        console.log(stressData);
+        console.log(stressData.features);
         geojson = L.geoJson(stressData.features,{
-	pointToLayer: function (feature, latlng) {
+	    pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng, geojsonMarkerOptions);
 	},onEachFeature: onEachFeaturePoint
-}).addTo(mymap);
-    LayerList.push(geojson);
+});
+
+    markerClusters.addLayer(geojson);
+    mymap.addLayer(markerClusters);
+    LayerList.push(markerClusters);
     pointLayerList.push(geojson);
     mymap.spin(false);
     url = "";
@@ -327,15 +215,11 @@ fetch(url)
 
 
 function displayPolygon(blockName,lat,long){
-// LayerList.forEach(layer => mymap.removeLayer(layer));
 layer_url =base_url + "&typename=geonode%3A"+blockName;
 if(blockName === 'deonadi_villages'){
-    LayerList.forEach(layer => mymap.removeLayer(layer));
     info.addTo(mymap); 
 } 
-if(blockName === 'major_streams_dev') LayerList.forEach(layer => mymap.removeLayer(layer));
 
-// console.log(blockName);
 fetch(layer_url)
 .then(
     function(response) {
@@ -414,19 +298,10 @@ info.onAdd = function (mymap) {
     return this._div;
 };
 
-// info.update = function (props) {
-//     this._div.innerHTML = '<h4>Village Information</h4>' +  (props ?
-//         '<b>Village Name:</b>'+props.village_na + '<br /></br>'+
-//         '<b>Total Population:</b>'+props.tot_popu + '<br><br>' + 
-//         '<b>Area:</b>'+props.area_ha+'<br><br>' + 
-//         '<b>Net Area Sown (in Hectares):</b>'+ props.net_area+'<br><br>'+
-//         '<b>Forest Area (in Hectares)</b>'+ props.forest + '<br><br>'+
-//         '<b>Area Irrigated by Source (in Hectares)<b>' + props.area_irri
-//         : 'Hover over a VILLAGE');
-// };
+
 info.update = function (props) {
     this._div.innerHTML = '' +  (props ?
-    "<table class = 'info-class' ><tr><td>Village Name:</td><td style = 'text-transform: capitalize'><b>"+props.village_na+"<b></td></tr>"+
+    "<table class = 'info-class' ><tr><td>Village Name</td><td style = 'text-transform: capitalize'><b>"+props.village_na+"<b></td></tr>"+
         "<tr><td>Total Population</td><td>"+props.tot_popu+"</td></tr>"+
         "<tr><td>Area:</td><td>"+props.area_ha+"</td></tr>"+
         "<tr><td>Net Area Sown (in Hectares)</td><td>"+props.net_area+"</td></tr>"+
