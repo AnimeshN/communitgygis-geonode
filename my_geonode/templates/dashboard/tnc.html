@@ -183,7 +183,6 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        console.log(stressData.features);
         geojson = L.geoJson(stressData.features,{
 	    pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng, geojsonMarkerOptions);
@@ -217,6 +216,7 @@ layer_url =base_url + "&typename=geonode%3A"+blockName;
 if(blockName === 'deonadi_villages'){
     info.addTo(mymap); 
 } 
+mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 
 fetch(layer_url)
 .then(
@@ -243,6 +243,7 @@ fetch(layer_url)
     }).addTo(mymap);
         }
         
+    mymap.spin(false);
     LayerList.push(geojson);
 
     });
