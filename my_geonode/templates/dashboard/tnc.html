@@ -156,12 +156,10 @@ function clear_layer(){
 function onEachFeaturePoint(feature, layer) {
 	// does this feature have a property named popupContent?
 		layer.bindPopup(feature.properties.Name);
-        console.log(feature.properties.Name);
 	
 }
 var markerClusters = L.markerClusterGroup({"chunkedLoading": true});
 
-console.log(markerClusters);
 function displayPoints(layer_name,assessment){
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 url =base_url + "&typename=geonode%3A"+layer_name;
