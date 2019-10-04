@@ -81,28 +81,16 @@
    mymap.setView(SINNER_LAT_LONG,11);
 })();
 
-
-    var deonadi = {'Deonadi Basin Villages':['deonadi_villages',19.8427, 74.0770],'Deonadi Streams':['major_streams_dev',19.8427, 74.0770],'Wells in catchment area':['deonadi_wells',19.8427, 74.0770]};
-    $('#block').change(function () {
-        clear_layer();        
-        var deo = document.getElementById('block').value;
-        if(deo === 'Deonadi Streams'){
-            displayPolygon(deonadi[deo][0],deonadi[deo][1],deonadi[deo][2]);      
-            displayPolygon('devnadi_Cachment_generated',deonadi[deo][1],deonadi[deo][2]);      
-            
-        }if(deo === 'Wells in catchment area'){
-            displayPolygon('devnadi_Cachment_generated',deonadi[deo][1],deonadi[deo][2]);      
-            displayPoints('deonadi_wells');      
-
-        }else{
-            displayPolygon(deonadi[deo][0],deonadi[deo][1],deonadi[deo][2]);      
-
-        }
-    });
-    
 var geojson;
-const domain = ['https://makerghat.urbansciences.in/','http://localhost/'];
-var base_url = domain[1] + "geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
+const domain = ['https://makerghat.urbansciences.in/','http://locaost/'];
+var rootUrl = domain[1] + 'geoserver/geonode/ows';
+var defaultParameters = {
+service: 'WFS',
+version: '1.0.0',
+request: 'GetFeature',
+outputFormat: 'application/json'
+};
+
 var info = L.control();
 var attribute_table = L.control({position: 'bottomright'});
 var layer_name;
@@ -110,6 +98,34 @@ var layer_name;
 
 var LayerList = [];
 var pointLayerList = [];
+const LAT = 19.8427, LONG = 74.0770;
+const TYPENAME = {'Deonadi Basin Villages':'geonode:deonadi_villages','Deonadi Streams':'geonode:major_streams_dev','Wells in catchment area':'geonode:deonadi_wells'};
+var tempParameter;
+$('#block').change(function () {
+    clear_layer();        
+    var deo = document.getElementById('block').value;
+    var tempParameter = defaultParameters;
+    if(deo === 'Deonadi Streams'){
+        tempParameter.typeName = TYPENAME[deo]; 
+        displayPolygon(tempParameter);
+        tempParameter.typeName = 'geonode:devnadi_Cachment_generated'; 
+        displayPolygon(tempParameter);      
+    }else if(deo === 'Wells in catchment area'){
+        tempParameter.typeName = 'geonode:devnadi_Cachment_generated'; 
+        displayPolygon(tempParameter);
+        tempParameter.typeName = TYPENAME[deo]; 
+        displayPoints(tempParameter);
+    }else if(deo === 'Deonadi Basin Villages'){
+        tempParameter.typeName = TYPENAME[deo]; 
+        tempParameter.propertyName = 'the_geom,village_na,tot_popu,area_ha,net_area,forest,area_irri';
+        displayPolygon(tempParameter);  
+        delete tempParameter['propertyName'];
+    
+
+    }
+});
+
+
 
 function getColor(d) {
     return d > 6 ? '#FF0000' :
@@ -156,15 +172,18 @@ function clear_layer(){
 function onEachFeaturePoint(feature, layer) {
 	// does this feature have a property named popupContent?
 		layer.bindPopup(feature.properties.Name);
-        console.log(feature.properties.Name);
 	
 }
 var markerClusters = L.markerClusterGroup({"chunkedLoading": true});
 
-console.log(markerClusters);
-function displayPoints(layer_name,assessment){
+
+
+function displayPoints(param){
+console.log(param);
 mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
-url =base_url + "&typename=geonode%3A"+layer_name;
+var parameters = L.Util.extend(param);
+console.log(parameters);
+point_url = rootUrl + L.Util.getParamString(parameters)
 var geojsonMarkerOptions = {
 	radius: 8,
 	fillColor: "#ff7800",
@@ -174,7 +193,7 @@ var geojsonMarkerOptions = {
 	fillOpacity: 0.8
 };
 
-fetch(url)
+fetch(point_url)
 .then(
     function(response) {
     if (response.status !== 200) {
@@ -185,7 +204,6 @@ fetch(url)
 
     // Examine the text in the response
     response.json().then(function(stressData) {
-        console.log(stressData.features);
         geojson = L.geoJson(stressData.features,{
 	    pointToLayer: function (feature, latlng) {
 		return L.circleMarker(latlng, geojsonMarkerOptions);
@@ -214,11 +232,14 @@ fetch(url)
 
 
 
-function displayPolygon(blockName,lat,long){
-layer_url =base_url + "&typename=geonode%3A"+blockName;
-if(blockName === 'deonadi_villages'){
+function displayPolygon(param){
+var parameters = L.Util.extend(param);
+layer_url = rootUrl + L.Util.getParamString(parameters)
+
+if(param.typeName === 'geonode:deonadi_villages'){
     info.addTo(mymap); 
 } 
+mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
 
 fetch(layer_url)
 .then(
@@ -231,13 +252,14 @@ fetch(layer_url)
 
     // Examine the text in the response
     response.json().then(function(geojsonData) {
-        mymap.setView([lat, long], 11);
-        if(blockName === 'deonadi_villages'){
+        console.log(geojsonData)
+        mymap.setView([LAT, LONG], 11);
+        if(param.typeName === 'geonode:deonadi_villages'){
         geojson = L.geoJson(geojsonData.features, {
         style : style,
         onEachFeature: onEachFeature
     }).addTo(mymap);
-        }else if(blockName === 'major_streams_dev'){
+        }else if(param.typeName === 'geonode:major_streams_dev'){
         geojson = L.geoJson(geojsonData.features, {style : river_style}).addTo(mymap); 
         }else{
         geojson = L.geoJson(geojsonData.features, {
@@ -245,6 +267,7 @@ fetch(layer_url)
     }).addTo(mymap);
         }
         
+    mymap.spin(false);
     LayerList.push(geojson);
 
     });
@@ -311,7 +334,6 @@ info.update = function (props) {
 };
 
 </script>
-
 
 {% endblock %}
 
