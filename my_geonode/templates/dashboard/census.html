@@ -46,9 +46,11 @@ table, th, td
     <div class="field_wrapper arrange">
      <h4>Census 2011 <br></h4>
         <hr>
-        <div>Select Themes:
+        <div>
             <select class='form-control' id="amenities" >
-              <option>Village Amenities</option>
+              <option>Select Themes</option>
+
+              <!-- <option>Village Amen ities</option> -->
               <option>Household Amenities</option>
               <option>Town Amenities</option>
               <option >Demographics</option>
@@ -413,15 +415,45 @@ info.onAdd = function (mymap) {
 };
 
 info.update = function (props) {
-    this._div.innerHTML = '<h4 class= "text-center">Village Information</h4><hr>' +  (props ?
+    var amenity = document.getElementById('amenities').value;
+
+    console.log(amenity);
+    if(amenity === 'Demographics'){
+        this._div.innerHTML = '<h4 class= "text-center">Information</h4><hr>' +  (props ?
         "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
-        "<tr><td>Village Name</td><td>"+props.village_na+"</td></tr>"+
-        "<tr><td>Total Population</td><td>"+props.tot_popu+"</td></tr>"+
-        "<tr><td>Total Female Population</td><td>"+props.tot_popu_f+"</td></tr>"+
-        "<tr><td>Total Male Population</td><td>"+props.tot_popu_m+"</td></tr>"+
+        "<tr><td>Village Name</td><td>"+props.area_name+"</td></tr>"+
+        "<tr><td>Total Population</td><td>"+props.tot_p+"</td></tr>"+
+        "<tr><td>Total Female Population</td><td>"+props.tot_f+"</td></tr>"+
+        "<tr><td>Total Male Population</td><td>"+props.tot_m+"</td></tr>"+
         "<tr><td>Illetrate population</td><td>"+props.p_ill+"</tr>"+
         "<tr><td>Literate: Population</td><td>"+props.p_lit+"</tr></table>"
         : 'Please hover over a village');
+    }else if (amenity === 'Town Amenities'){
+        this._div.innerHTML = '<h4 class= "text-center">Information</h4><hr>' +  (props ?
+        "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
+        "<tr><td>Town Name</td><td>"+props.town_name+"</td></tr>"+
+        "<tr><td>Total Population</td><td>"+props.tot_pop+"</td></tr>"+
+        "<tr><td>Total Female Population</td><td>"+props.tot_f_pop+"</td></tr>"+
+        "<tr><td>Total Male Population</td><td>"+props.tot_mpop+"</td></tr>"
+            : 'Please hover over a Town');
+    }else if (amenity === 'Household Amenities'){
+        this._div.innerHTML = '<h4 class= "text-center">Information</h4><hr>' +  (props ?
+        "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
+        "<tr><td>Area Name</td><td>"+props.area_name+"</td></tr>"
+            : 'Please hover over a Town');
+    }else if (amenity === 'Town Amenities'){
+        this._div.innerHTML = '<h4 class= "text-center">Information</h4><hr>' +  (props ?
+        "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
+        "<tr><td>Town Name</td><td>"+props.town_name+"</td></tr>"+
+        "<tr><td>Total Population</td><td>"+props.tot_pop+"</td></tr>"+
+        "<tr><td>Total Female Population</td><td>"+props.tot_f_pop+"</td></tr>"+
+        "<tr><td>Total Male Population</td><td>"+props.tot_mpop+"</td></tr>"
+            : 'Please hover over a Town');
+    }
+    
+
+
+
 };
 
 info.addTo(mymap);
