@@ -41,6 +41,12 @@
     font-weight: bold;
 }
 
+.leaflet-tooltip.my-labels {
+  background-color: transparent;
+  border: transparent;
+  box-shadow: none;
+  }
+
 </style>
 
 <div id="side-bar" style="background-color: rgba(0, 0, 0, 0.2);">                <!-- side-bar container -->
@@ -295,6 +301,9 @@ fetch(layer_url)
                 mymap.addControl(searchControl);
             }
             
+            
+
+
         }else if(param.typeName === 'geonode:major_streams_dev'){
         geojson = L.geoJson(geojsonData.features, {style : river_style}); 
         }else{
@@ -332,6 +341,12 @@ function onEachFeature(feature, layer) {
         mouseout: resetHighlight,
         click: zoomToFeature
     });
+
+    layer.bindTooltip("<div style = 'text-transform: capitalize'>"+feature.properties.village_na+"</div>",{permanent: true, 
+   direction: "center",
+   className: "my-labels"});
+   
+
 }
 function highlightFeature(e) {
     var layer = e.target;
