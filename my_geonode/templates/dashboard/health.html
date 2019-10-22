@@ -118,7 +118,7 @@
 
 <script>
     const LAT = 27.14, LONG = 78.06;
-    var listOfAspiDistrict ={'All':['All',LAT,LONG],'Araria':['araria',26.1311, 87.4455],'Bahraich':['bahraich',27.5705, 81.5977],
+    var listOfAspiDistrict ={'All 25 Aspirational Districts':['All 25 Aspirational Districts',LAT,LONG],'Araria':['araria',26.1311, 87.4455],'Bahraich':['bahraich',27.5705, 81.5977],
     'Baksa':['baksa',26.6935, 91.5984],'Balrampur':['balrampur',27.4308,82.3018],'Baran':['Baran',25.1011, 76.5132],'Barpeta':['barpeta',26.3304, 91.0041],
     'Barwani':['barwani',22.0363,74.9033],'Begusarai':['Begusarai',25.4182, 86.1272],'Chitrakoot':['Chitrakoot',25.1094, 81.0755],'Damoh':['Damoh',23.8323,79.4387],
     'Darrang':['darrang',26.4523, 92.0273],'Dhubri':['dhubri',26.0207, 89.9743],'East-Nimar':['East-Nimar',21.8803, 76.6413],'Goalpara':['Goalpara',26.0876,90.5636],
@@ -162,7 +162,7 @@ $('#district').change(function () {
     var aspiD = document.getElementById('district').value;
     distLayerLatLong = listOfAspiDistrict[aspiD];
     // console.log(distLayerLatLong);
-    if(aspiD !== 'All')tempParameter.cql_filter = "district='"+distLayerLatLong[0]+"'";
+    if(aspiD !== 'All 25 Aspirational Districts')tempParameter.cql_filter = "district='"+distLayerLatLong[0]+"'";
     displayPolygon(tempParameter);
     districtlayer = distLayerLatLong[0];
     var districtlayerCapitalized = districtlayer.charAt(0).toUpperCase() + districtlayer.slice(1)
@@ -173,7 +173,7 @@ $('#district').change(function () {
 
     displayPoints(tempParameter);
     var zoom;
-    if(aspiD === 'All'){zoom = 6.2}else {zoom = 9};
+    if(aspiD === 'All 25 Aspirational Districts'){zoom = 6.2}else {zoom = 9};
     mymap.setView([distLayerLatLong[1],distLayerLatLong[2]],zoom);
     delete tempParameter['cql_filter'];
 });
@@ -204,7 +204,7 @@ $('#block').change(function () {
 
     // displayPoints(tempParameter);
     // var zoom;
-    // if(aspiD === 'All'){zoom = 6.2}else {zoom = 9};
+    // if(aspiD === 'All 25 Aspirational Districts'){zoom = 6.2}else {zoom = 9};
     // mymap.setView([distLayerLatLong[1],distLayerLatLong[2]],zoom);
     // delete tempParameter['cql_filter'];
 });
@@ -257,9 +257,9 @@ function clear_layer(){
 }
 
 function onEachFeaturePoint(feature, layer) {
-	// does this feature have a property named popupContent?
-		layer.bindPopup(feature.properties.Name);
-	
+    // does this feature have a property named popupContent?
+        layer.bindPopup(feature.properties.Name);
+    
 }
 
 
@@ -333,10 +333,10 @@ fetch(point_url)
                 }else if(feature.properties.entity === 'DHQ'){
                     return L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'star', markerColor: 'red', prefix: 'fa' }) });
                 }
-	},
+    },
     // onEachFeature: onEachFeatureForPoint,
     // filter: function(feature, layer) {
-    //             if(assessment == 'all'){
+    //             if(assessment == 'All 25 Aspirational Districts'){
     //                 return true;
     //             }else{
     //                 return feature.properties.Final_Asse == assessment;
@@ -365,9 +365,9 @@ fetch(point_url)
 }
 
 function onEachFeaturePoint(feature, layer) {
-	// does this feature have a property named popupContent?
-		layer.bindPopup(feature.properties.entity);
-	
+    // does this feature have a property named popupContent?
+        layer.bindPopup(feature.properties.entity);
+    
 }
 function zoomToFeature(e) {
     mymap.fitBounds(e.target.getBounds());
