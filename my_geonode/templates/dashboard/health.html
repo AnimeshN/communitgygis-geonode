@@ -20,11 +20,12 @@
     color: #777;
 }
 
-.table-legend{
+.table{
   border-collapse: collapse;
-  padding: 2px 3px;
-  width: 100%;
+  padding: 50px;
   font-weight: bold;
+
+  
   /* background:rgba(191, 149, 233, 0.473); */
 
 }
@@ -47,12 +48,12 @@
   <hr>
  <!-- Tab for Report , Dashboard , Query Builder -->
 
-           
- <h5>Aspirational Districts</h5>
-             <div class="tooltips" title="Please select the Block">
+         
+ <h5>25 Aspirational Districts</h5>
+             <div class="tooltips" title="Please select the District">
                 <select class = 'form-control' id="district" name="district">
                     <option>Select District</option>
-                            <option>All</option>
+                            <option>All 25 Aspirational Districts</option>
                              <option>Araria</option>
                              <option>Bahraich</option>
                              <option>Baksa</option>
@@ -79,17 +80,16 @@
                              <option>Vidisha</option>
                              
 
-                             <!--<option> Deonadi Basin Villages</option>
-                             <option> Wells in catchment area</option> -->
 
                 </select>
-            </div>
+              </div>  
+ 
 
 
 
             <!-- <br><br><h5>Malegaon</h5>
             <div class="tooltips" title="Please select the Block">
-               <select class = 'form-control' id="district" name="district">
+               <select class = 'form-control' id="block" name="block">
                    <option>Select Layers</option>
                             <option>Wards</option>
                             <option>Aanganwadi</option>
@@ -98,37 +98,8 @@
                             <option>Town Boundaries</option>
 
                </select>
-           </div> -->
-     
-           <br><br>
-           <!-- button legend -->
-           <div style="text-align: center">
-               <table class='table-legend'>
-                   <!-- <tr>
-                       <th colspan="2">Legend</i></th>
-                   </tr> -->
-                   <tr>
-                       <td><i class="fa fa-building" aria-hidden="true"></i></td>
-                       <td>Town</td>
-                   </tr>
-                   <tr>
-                       <td><i class="fa fa-medkit" aria-hidden="true"></i></td>
-                       <td>Community Health Center</td>
-                   </tr>
-                   <tr>
-                       <td><i class="fa fa-plus-circle" aria-hidden="true"></i></td>
-                       <td>Public Health Center</td>
-                   </tr>
-                   <tr>
-                       <td><i class="fa fa-square" aria-hidden="true"></i></td>
-                       <td>Sub-center</td>
-                   </tr>
-                   <tr>
-                        <td><i class="fa fa-star" aria-hidden="true"></i></td>
-                        <td>District Headquarter</td>
-                    </tr>
-               </table>
            </div>
+      -->
            
 
 
@@ -181,8 +152,11 @@ var LayerList = [];
 var pointLayerList = [];
 //const TYPENAME = {'Deonadi Basin Villages':'geonode:deonadi_villages','Deonadi Streams':'geonode:major_streams_dev','Wells in catchment area':'geonode:deonadi_wells'};
 var tempParameter;
+
+//aspirational districts
 $('#district').change(function () {
-    clear_layer(); 
+    clear_layer();
+    
     tempParameter = defaultParameters;
     tempParameter.typeName = 'geonode:aspirational_polygon_merged_30sep'; 
     var aspiD = document.getElementById('district').value;
@@ -202,8 +176,39 @@ $('#district').change(function () {
     if(aspiD === 'All'){zoom = 6.2}else {zoom = 9};
     mymap.setView([distLayerLatLong[1],distLayerLatLong[2]],zoom);
     delete tempParameter['cql_filter'];
-    
 });
+
+
+
+//malegaon
+$('#block').change(function () {
+    clear_layer();
+    
+    tempParameter = defaultParameters;
+    //tempParameter.typeName = 'geonode:aspirational_polygon_merged_30sep'; 
+    var maleg = document.getElementById('block').value;
+    //distLayerLatLong = listOfAspiDistrict[aspiD];
+    // console.log(distLayerLatLong);
+    if(maleg === 'Wards')tempParameter.typeName ='geonode:malegaon_merged_1' ;
+    if(maleg === 'Anganwadi')tempParameter.typeName ='geonode:urban_anganwadi_1' ;
+    if(maleg === 'Health Centers')tempParameter.typeName ='geonode:urban_health_1' ;
+    if(maleg === 'Schools')tempParameter.typeName ='geonode:urban_school_1' ;
+    if(maleg === 'Town Boundries')tempParameter.typeName ='geonode:town_boundr_malegaon_2' ;
+    displayPolygon(tempParameter);
+    // //districtlayer = distLayerLatLong[0];
+    // var districtlayerCapitalized = districtlayer.charAt(0).toUpperCase() + districtlayer.slice(1)
+    // if(aspiD === 'East-Nimar') districtlayerCapitalized = 'East Nimar';
+    // tempParameter.cql_filter = "block='"+districtlayerCapitalized+"'";
+
+    // tempParameter.typeName = 'geonode:aspi_point_entity_27sep'; 
+
+    // displayPoints(tempParameter);
+    // var zoom;
+    // if(aspiD === 'All'){zoom = 6.2}else {zoom = 9};
+    // mymap.setView([distLayerLatLong[1],distLayerLatLong[2]],zoom);
+    // delete tempParameter['cql_filter'];
+});
+
 
 
 
@@ -247,12 +252,14 @@ function river_style(feature) {
 
 function clear_layer(){
     LayerList.forEach(layer => mymap.removeLayer(layer));
+    // pointLayerList.forEach(layer => console.log(layer));
+    
 }
 
 function onEachFeaturePoint(feature, layer) {
-    // does this feature have a property named popupContent?
-        layer.bindPopup(feature.properties.Name);
-    
+	// does this feature have a property named popupContent?
+		layer.bindPopup(feature.properties.Name);
+	
 }
 
 
@@ -297,7 +304,6 @@ fetch(layer_url,{mode:'cors'})
 }
 
 function displayPoints(param){
-// pointLayerList.forEach(layer => mymap.removeLayer(layer));
 point_url = rootUrl + L.Util.getParamString(param);
 // console.log(point_url);
 fetch(point_url)
@@ -327,7 +333,7 @@ fetch(point_url)
                 }else if(feature.properties.entity === 'DHQ'){
                     return L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'star', markerColor: 'red', prefix: 'fa' }) });
                 }
-    },
+	},
     // onEachFeature: onEachFeatureForPoint,
     // filter: function(feature, layer) {
     //             if(assessment == 'all'){
@@ -338,30 +344,11 @@ fetch(point_url)
     //             }
                 
     //         }
-    }).addTo(mymap);
+    });
 
-//     var geojsonMarkerOptions = {
-//  radius: 8,
-//  fillColor: "#ff7800",
-//  color: "#000",
-//  weight: 1,
-//  opacity: 1,
-//  fillOpacity: 0.8
-// };
 
-//     response.json().then(function(stressData) {
-//         console.log(stressData.features);
-//         geojson = L.geoJson(stressData.features,{
-//      pointToLayer: function (feature, latlng) {
-//      return L.circleMarker(latlng, geojsonMarkerOptions);
-//  },onEachFeature: onEachFeaturePoint
-// });
-
-// geojson.addTo(mymap);
-    // LayerList.push(geojson);
-    // pointLayerList.push(geojson);
-    // mymap.spin(false);
-
+    geojson.addTo(mymap);
+    LayerList.push(geojson);
     point_url = "";
 
     });
@@ -378,9 +365,9 @@ fetch(point_url)
 }
 
 function onEachFeaturePoint(feature, layer) {
-    // does this feature have a property named popupContent?
-        layer.bindPopup(feature.properties.entity);
-    
+	// does this feature have a property named popupContent?
+		layer.bindPopup(feature.properties.entity);
+	
 }
 function zoomToFeature(e) {
     mymap.fitBounds(e.target.getBounds());
@@ -420,19 +407,33 @@ info.onAdd = function (mymap) {
     this.update();
     return this._div;
 };
-
-
 info.update = function (props) {
-    this._div.innerHTML = '' +  (props ?
-    "<table class = 'info-class' ><tr><td>Village Name</td><td style = 'text-transform: capitalize'><b>"+props.village_na+"<b></td></tr>"+
-        "<tr><td>Total Population</td><td>"+props.tot_popu+"</td></tr>"+
-        "<tr><td>Area:</td><td>"+props.area_ha+"</td></tr>"+
-        "<tr><td>Net Area Sown (in Hectares)</td><td>"+props.net_area+"</td></tr>"+
-        "<tr><td>Forest Area (in Hectares)</td><td>"+props.forest+"</tr>"+
-        "<tr><td>Area Irrigated by Source (in Hectares)<b></td><td>"+props.area_irri+"</td></tr></table>"
-        : 'Hover over a village');
+    this._div.innerHTML = `<div style="text-align: center">
+               <table class='table-legend'>
+                   <tr>
+                       <td><i class="fa fa-building" aria-hidden="true"></i></td>
+                       <td>Town</td>
+                   </tr>
+                   <tr>
+                       <td><i class="fa fa-medkit" aria-hidden="true"></i></td>
+                       <td>Community Health Center</td>
+                   </tr>
+                   <tr>
+                       <td><i class="fa fa-plus-circle" aria-hidden="true"></i></td>
+                       <td>Public Health Center</td>
+                   </tr>
+                   <tr>
+                       <td><i class="fa fa-square" aria-hidden="true"></i></td>
+                       <td>Sub-center</td>
+                   </tr>
+                   <tr>
+                        <td><i class="fa fa-star" aria-hidden="true"></i></td>
+                        <td>District Headquarter</td>
+                    </tr>
+               </table>
+           </div>`;
 };
-
+info.addTo(mymap);
 </script>
 
 {% endblock %}

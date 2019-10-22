@@ -310,10 +310,13 @@ if(amenity === 'Village Amenities'){
     }else{
         tempParameter.typeName = "geonode:VillageCensus_maharashtra_1_0";
         tempParameter.cql_filter="district_n='"+villageLayerCode[index]+"'";
-        tempParameter.propertyName="fid,the_geom,census_201,village_na,taluka_nam,govt_pre_1,govt_pri_1";
+        tempParameter.propertyName="fid,the_geom,census_201,village_na,taluka_nam,govt_pre_1,govt_pri_1,tot_popu";
 
         displayPolygon(tempParameter,districtLat[index],districtLong[index]);
-         console.log(tempParameter);
+        //  console.log(tempParameter);
+        legend.addTo(mymap);
+        info.addTo(mymap);
+
         myDistrictLayerList.push(villageLayerCode[index]);
         } 
     }
@@ -324,13 +327,14 @@ else if(amenity === 'Household Amenities'){
         tempParameter.typeName = "geonode:household";
         tempParameter.cql_filter="district_n='"+houseLayerCode[index]+"'";
         tempParameter.propertyName="fid,the_geom,census_201,area_name,taluka_nam,district_n,msdw_taput,mroof_gra,plat_vent,nobathroom";
-
+        info.addTo(mymap);
+        mymap.removeControl(legend);
         //tempParameter.propertyName="id,the_geom,district_n,area_name,tot_p,tot_f,tot_m,p_ill,p_lit";    
     //     var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
     // layer_url =base_url + "&typeName=geonode%3Ahousehold&cql_filter=district_n='"+houseLayerCode[index]+"'";
     displayPolygon(tempParameter,districtLat[index],districtLong[index]);
 
-     console.log(tempParameter);
+    //  console.log(tempParameter);
 
      myDistrictLayerList.push(houseLayerCode[index]);
         } 
@@ -341,7 +345,9 @@ else if(amenity === 'Household Amenities'){
     }else{
         tempParameter.typeName = "geonode:town";
         tempParameter.cql_filter="district_n='"+townLayerCode[index]+"'";
-        tempParameter.propertyName="fid,the_geom,census_201,district_n,town_name,civic_stat,sex_rati_2";
+        tempParameter.propertyName="fid,the_geom,census_201,district_n,town_name,civic_stat,sex_rati_2,tot_pop";
+        legend.addTo(mymap);
+        info.addTo(mymap);
 
         //tempParameter.propertyName="id,the_geom,district_n,area_name,tot_p,tot_f,tot_m,p_ill,p_lit";    
          
@@ -361,6 +367,8 @@ else if(amenity === 'Household Amenities'){
         tempParameter.typeName = "geonode:maha_demography";
         tempParameter.cql_filter="district_n='"+demoLayerCode[index]+"'";
         tempParameter.propertyName="id,the_geom,district_n,area_name,tot_p,tot_f,tot_m,p_ill,p_lit";
+        legend.addTo(mymap);
+        info.addTo(mymap);
 
         // source.getLayer(demoLayerCode[index]).addTo(mymap);
     //var base_url = "https://makerghat.urbansciences.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=application/json&";
@@ -444,7 +452,7 @@ info.onAdd = function (mymap) {
 info.update = function (props) {
     var amenity = document.getElementById('amenities').value;
 
-    console.log(amenity);
+    // console.log(amenity);
     if(amenity === 'Demographics'){
         this._div.innerHTML = '<h4 class= "text-center">Demographics Information</h4><hr>' +  (props ?
         "<table><tr><td>District Name</td><td><b>"+props.district_n+"<b></td></tr>"+
@@ -491,7 +499,6 @@ info.update = function (props) {
 
 };
 
-info.addTo(mymap);
 
 function getColor(d) {
     return d > 5000 ? '#008080' :
@@ -502,13 +509,32 @@ function getColor(d) {
 }
 
 function style(feature) {
-    return {
+    if(feature.properties.tot_p){
+        return {
         fillColor: getColor(feature.properties.tot_p),
         weight: 3,
         opacity: 1,
         color: 'white',
         fillOpacity: 0.9
     };
+    }else if(feature.properties.tot_pop){
+        return {
+        fillColor: getColor(feature.properties.tot_pop),
+        weight: 3,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.9
+    };
+    }else if(feature.properties.tot_popu){
+        return {
+        fillColor: getColor(feature.properties.tot_popu),
+        weight: 3,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.9
+    };
+    }
+    
 }
 
 var legend = L.control({position: 'bottomright'});
@@ -530,70 +556,17 @@ legend.onAdd = function (mymap) {
     return div;
 };
 
-legend.addTo(mymap);
-
-
-// function displayPolygon(param){
-// var parameters = L.Util.extend(param);
-// layer_url = rootUrl + L.Util.getParamString(parameters)
-
-// if(param.typeName === 'geonode:deonadi_villages'){
-//     info.addTo(mymap); 
-// } 
-// mymap.spin(true,{lines: 9, length: 2, width: 20, scale: 60,radius: 70, color: "grey"});
-
-// fetch(layer_url)
-// .then(
-//     function(response) {
-//     if (response.status !== 200) {
-//         console.log('Looks like there was a problem. Status Code: ' +
-//         response.status);
-//         return;
-//     }
-
-//     // Examine the text in the response
-//     response.json().then(function(geojsonData) {
-//         console.log(geojsonData)
-//         mymap.setView([LAT, LONG], 11);
-//         if(param.typeName === 'geonode:deonadi_villages'){
-//         geojson = L.geoJson(geojsonData.features, {
-//         style : style,
-//         onEachFeature: onEachFeature
-//     }).addTo(mymap);
-//         }else if(param.typeName === 'geonode:major_streams_dev'){
-//         geojson = L.geoJson(geojsonData.features, {style : river_style}).addTo(mymap); 
-//         }else{
-//         geojson = L.geoJson(geojsonData.features, {
-//         style : style,
-//     }).addTo(mymap);
-//         }
-        
-//     mymap.spin(false);
-//     LayerList.push(geojson);
-
-//     });
-
-
-//     }
-// )
-// .catch(function(err) {
-//     console.log('Fetch Error :-S', err);
-// });
 
 
 
 
 
 function displayPolygon(param_obj,lat,long){
-// if(mymap.hasLayer(geojson)){
-// mymap.removeLayer(geojson);
-// }else{
-    
 
 var parameters = L.Util.extend(param_obj);
 layer_url = rootUrl + L.Util.getParamString(parameters)
 LayerList.forEach(layer => mymap.removeLayer(layer));
-console.log(layer_url);
+// console.log(layer_url);
 mymap.spin(true,{lines: 15, length: 1, width: 50, scale: 200,radius: 200, color: "grey"});
 fetch(layer_url)
 .then(
@@ -606,7 +579,7 @@ fetch(layer_url)
 
     // Examine the text in the response
     response.json().then(function(geojsonData) {
-        console.log(geojsonData.features);
+        // console.log(geojsonData.features);
         mymap.setView([lat, long], 11);
         geojson = L.geoJson(geojsonData.features, {
         style : style,
@@ -634,54 +607,7 @@ function removeMyNewLayers(amenity,dis){
 
 }
 
-// function downloadTheseLayers(anemity,dis){
-//   var index = listOfDistrict.indexOf(dis);
-//   var geonodecode = '';
-//   if (anemity == 'Village Amenities'){
-//     if(villageLayerCode[index] == ''){
-//         alert('layer of '+ dis + ' not found');
-//     }else{
-//     geonodecode = villageLayerCode[index];
-//     }
-// }
-  
-//   else if(anemity == 'Town Amenities'){
-//     if(townLayerCode[index] == ''){
-//         alert('layer of '+ dis + ' not found');
-//     }else{
-//     geonodecode = townLayerCode[index];
-//     }
-// }
-  
-//   else if(anemity == 'Demographies'){
-//     if(demoLayerCode[index] == ''){
-//         alert('layer of '+ dis + ' not found');
-//     }else{
-//     geonodecode = demoLayerCode[index];
-//     }
-// }
-    
-    
-// else if(anemity == 'Household Amenities'){
-//     if(houseLayerCode[index] == ''){
-//         alert('layer of '+ dis + ' not found');
-//     }else{
-//     geonodecode = houseLayerCode[index];
-//     }
-// }
 
-//     else{
-//     alert('Data for '+anemity+' not Populated');
-//     }
-//    if (geonodecode != ''){
-//     var code = geonodecode.substring(8, );
-//     console.log(code);
-//     url = "http://104.210.61.129/geoserver/wfs?format_options=charset%3AUTF-8&typename=geonode%3A"+code+"&outputFormat=SHAPE-ZIP&version=1.0.0&service=WFS&request=GetFeature&";
-//     window.open(url,code); 
-//    }
-   
-
-// }
 </script>
 
 
