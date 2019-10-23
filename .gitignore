@@ -12,3 +12,4 @@ rapid_render.json
 storage.json
 my_geonode/uploaded
 .idea/
+my_geonode/static_root/swm/
