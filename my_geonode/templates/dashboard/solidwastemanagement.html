@@ -102,6 +102,10 @@
     <button class="btn select" onclick="putLayer('geonode:s_ward_bufferforrailway_15jan_dhiraj','sward')">HVL buffer</button>
     <button class="btn select" onclick="putLayer('geonode:s_ward_flyover_bridge_17jan_kajal','sward')">Flyover Bridge</button><br><br>
 
+    <section class = 'heading'>H west-ward</section><br>
+    <button class="btn select" onclick="putLayer('geonode:hwest_osm_buildings','hwestward')">Buildings</button><br><br>
+
+
 
     <section class = 'heading'>Pune</section><br>
     <button class="btn btn-primary" onclick="displayPolygon('building_footprint')">Building Footprint</button>
@@ -127,6 +131,8 @@
             mymap.setView([19.0790, 72.9080], 13);
         }else if(area === 'sward'){
             mymap.setView([19.1334, 72.9133], 13);
+        }else if(area === 'hwestward'){
+            mymap.setView([19.06251,72.8276],16);
         }
 
      }
